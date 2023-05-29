@@ -349,6 +349,7 @@ label:hover{
   transition:0s;
 }
 
+/*Go to top button*/
 .gotopbtn{
   position:fixed;
   width:50px;

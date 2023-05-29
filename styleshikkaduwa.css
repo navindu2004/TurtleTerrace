@@ -173,7 +173,7 @@ header .menu-toggle:checked ~ .nav ul {
   }
 }
 
-
+/*Go to top button*/
   .gotopbtn{
     position:fixed;
     width:50px;
@@ -485,4 +485,25 @@ header .menu-toggle:checked ~ .nav ul {
     flex-basis: 100%;
     padding: 0px 50px;
   }
+}
+
+
+/*To view for larger map*/
+
+.map-container {
+  position: relative;
+}
+
+.view-map-link {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #fff;
+  color: #333;
+  padding: 5px 10px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }

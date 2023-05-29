@@ -322,7 +322,7 @@ header .menu-toggle:checked ~ .nav ul {
   }
 }
 
-
+/*Go to top button*/
   .gotopbtn{
     position:fixed;
     width:50px;

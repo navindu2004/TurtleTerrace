@@ -512,6 +512,10 @@ header .menu-toggle:checked ~ .nav ul {
     position:static;
     display:block;
     width: 100%;
+    visibility: hidden;
+  }
+  header ul li:hover ul {
+    visibility: visible;
   }
   header ul li ul li a{
     padding:10px;
@@ -1033,6 +1037,7 @@ button {
   font-size: 16px;
 }
 
+/*Go to top button*/
 .gotopbtn{
   position:fixed;
   width:50px;

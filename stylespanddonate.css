@@ -856,6 +856,8 @@ button{
   background-color: #4caf50;
 }
 
+
+/*Go to top button*/
 .gotopbtn{
   position:fixed;
   width:50px;
