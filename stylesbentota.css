@@ -537,7 +537,7 @@ header .menu-toggle:checked ~ .nav ul {
 }
 .bentcontent .bentarticle .bentbutton a:hover{
   color: #fff;
-  background-color: #f28f92;
+  background-color: #2349aa;
   transition: 1s ease;
 }
 .bentcontainer .bentsocial{
