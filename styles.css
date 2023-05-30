@@ -612,7 +612,7 @@ video{
   }
   
   video{
-    width:95%;
+    width:100%;
     height:auto;
   }
 }
@@ -1057,13 +1057,12 @@ button {
 
 /*Box container for the 2 containers*/
 
-
 .container {
   display: flex;
   justify-content: space-between;
 }
 
-.box-container {
+.box-container1 {
   display: flex;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   border-radius: 10px;
@@ -1076,7 +1075,23 @@ button {
   max-width: calc(50% - 10px);
 }
 
-.box-container:hover {
+.box-container1:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+.box-container2 {
+  display: flex;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+  background: white;
+  margin-right: 30px;
+  height: 400px;
+  flex: 1; /* Change width to flex property */
+  max-width: calc(50% - 10px);
+}
+
+.box-container2:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
@@ -1091,7 +1106,6 @@ button {
   height: auto;
 }
 
-
 .content-container {
   flex: 1;
   padding: 20px;
@@ -1099,16 +1113,13 @@ button {
 }
 
 @media (max-width: 768px) {
-  .container {
-    flex-wrap: wrap;
-  }
-
-  .box-container {
-    margin-bottom: 20px;
-  }
-
-  .image-container,
-  .content-container {
+  .box-container1 {
     flex: 0 0 100%;
+    max-width: 100%;
+    height:500px;
+  }
+  .box-container1 {
+    flex: 0 0 100%;
+    max-width: 40%;
   }
 }
