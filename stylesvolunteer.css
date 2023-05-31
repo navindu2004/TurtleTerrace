@@ -611,3 +611,35 @@ img {
       z-index: 1;
     }
 
+    form {
+      width: 500px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    form:hover {
+      border-color: green;
+    }
+
+    input[type="text"], input[type="tel"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    @media screen and (max-width: 480px) {
+      form {
+        padding: 10px;
+      }
+    }

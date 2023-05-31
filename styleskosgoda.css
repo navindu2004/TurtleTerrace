@@ -325,6 +325,24 @@ html{
   }
 }
 
+
+
+@media screen and (max-width: 768px) {
+  .footer .footer-content {
+    flex-wrap: wrap;
+  }
+
+  .footer .footer-content .footer-section {
+    flex-basis: 100%;
+    margin-bottom: 20px;
+  }
+
+  .footer .footer-content .contact-form textarea.contact-input {
+    height: 80px;
+  }
+}
+
+
 /*Go to top button*/
     .gotopbtn{
       position:fixed;
