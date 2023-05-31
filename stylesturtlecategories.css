@@ -531,9 +531,25 @@ img {
 }
 
 .map-layout{
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto;
   justify-content: center;
-  text-align: center;
+}
+
+.map-layout iframe{
+  border-radius: 1000px ;
+}
+
+.map-layout h2{
+  color: black;
+}
+
+@media (max-width: 970px) {
+  .map-layout{
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+  }
 }
 .anim{
   opacity:0;
@@ -733,5 +749,8 @@ img {
     font-size: 22px;
     z-index: 1;
   }
-  
-  
+h1{
+  font-family: 'Roboto Condensed', sans-serif;
+  color:#4d9ea1;
+  text-align: center;
+}

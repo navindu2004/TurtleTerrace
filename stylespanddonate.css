@@ -837,6 +837,9 @@ button{
   .content{
     width:100%;
   }
+  .container{
+    width:95%;
+    }
 }
 
 .merchheading h2{
