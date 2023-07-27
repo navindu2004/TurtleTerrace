@@ -1,15 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Details Form</title>
+  <link rel="stylesheet" href="stylesdetails.css">
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+    <div class="input-group">
+      <label for="full-name">Full Name:</label>
+      <input type="text" id="full-name" maxlength="40" required>
+    </div>
+
+    <div class="input-group">
+      <label for="mobile-number">Mobile Number:</label>
+          <div class="select-box">
+        <div class="selected-option">
+            <div>
+                <span class="iconify" data-icon="flag:gb-4x3"></span>
+                <strong>+44</strong>
+            </div>
+            <input type="tel" name="tel" placeholder="Phone Number">
+        </div>
+        <div class="options">
+            <input type="text" class="search-box" placeholder="Search Country Name">
+            <ol>
+
+            </ol>
+        </div>
+    </div>
+
+    </div>
+    </div>
+
+    <div class="row">
+    <div class="input-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+    </div>
+
+    <div class="input-group">
+      <label for="confirm-email">Confirm Email:</label>
+      <input type="email" id="confirm-email" required>
+    </div>
+    </div>
+    <button id="submit-btn">Submit</button>
+  </div>
+
+  <script src="detailsjs.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- custom css file link  -->
+    custom css file link 
     <link rel="stylesheet" href="css/style.css">
 
-</head>
-<body>
+</head> -->
+<!-- <body>
 
 <div class="container">
 
@@ -102,9 +233,9 @@
 </div>    
 
 
-<!--Phone number part-->
+Phone number part-->
 
-    <div class="select-box">
+    <!-- <div class="select-box">
         <div class="selected-option">
             <div>
                 <span class="iconify" data-icon="flag:gb-4x3"></span>
@@ -120,7 +251,7 @@
         </div>
     </div>
     <script src="script.js"></script>
-</body>
+</body> -->
 
     
 
@@ -162,5 +293,5 @@ document.querySelector('.cvv-input').oninput = () =>{
 
 </script>
 
-</body>
+</body> -->
 </html>

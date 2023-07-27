@@ -81,3 +81,31 @@ const totalCalc = function(){
     totalElem.textContent = total.toFixed(2);
     payAmountBtn.textContent = total.toFixed(2);
 }
+
+    // Save values to local storage
+    localStorage.setItem('subtotal', subtotal.toFixed(2));
+    localStorage.setItem('tax', totalTax.toFixed(2));
+    localStorage.setItem('total', total.toFixed(2));
+
+// On initial load, call totalCalc function to set values
+totalCalc();
+
+
+
+// Function to delete the card element with animation
+const deleteCardWithAnimation = (card) => {
+    card.style.animation = 'fade-out 0.5s ease';
+    setTimeout(() => {
+        card.remove();
+        totalCalc();
+    }, 500);
+};
+
+// Add event listener to each product-close-btn to delete the card when clicked
+const productCloseBtns = document.querySelectorAll('.product-close-btn');
+productCloseBtns.forEach((btn) => {
+    btn.addEventListener('click', function () {
+        const card = this.closest('.card');
+        deleteCardWithAnimation(card);
+    });
+});
