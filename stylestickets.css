@@ -328,7 +328,6 @@ header .icons span:last-child{
 
 /*Table*/
 .table-container{
-    background-image: url('background.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -377,7 +376,22 @@ input[type="submit"], input[type="reset"]{
 input[type="submit"]:hover{
     background: #4b99d8;
 }
+input[type="reset"]:hover{
+    background: #4b99d8;
+}
 
 button{
     background: #eee;
+    padding: 6px 12px;
+    margin: 15px 0 10px;
+    display: inline-block;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+}
+
+button:hover{
+    background: #4b99d8;
 }
