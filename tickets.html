@@ -4,8 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crowny Hotel</title>
+    <title>Buy Tickets</title>
     <link rel="stylesheet" href="stylestickets.css">
+    <script src="ticketsjavas.js" defer></script>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Lumanosimo&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -17,7 +23,7 @@
         </div>
         <div class="navlinks">
             <ul id="menulist">
-                <li><a href="#home">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#rooms">Rooms</a></li>
                 <li><a href="#pages">Pages</a></li>
@@ -30,9 +36,262 @@
         </div>
     </div>
 </header>
+<header class="buy-tickets">
+    <h1>Buy Tickets for Turtle Terrace Hikkaduwa</h1>
+</header>
+<div class="main-container">
+<div class="dates-section">
+    <h1>Dates</h1>
+    <p>Enter the date/s of visit:- </p>
+</div><br>
 
-<script></script>
 
+<!--Embedded Calendar-->
+<div class="main-calendar">
+<div class="calendar-wrapper">
+    <header>
+        <p class="current-date">August 2023</p>
+        <div class="icons">
+            <span class="fa fa-chevron-left" id="prev"></span>
+            <span class="fa fa-chevron-right" id="next"></span>
+        </div>
+    </header>
+    <div class="calendar">
+        <ul class="weeks">
+            <li>Sun</li>
+            <li>Mon</li>
+            <li>Tue</li>
+            <li>Wed</li>
+            <li>Thur</li>
+            <li>Fri</li>
+            <li>Sat</li>
+        </ul>
+        <ul class="days">
+        </ul>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+<h1>Ticket Categories</h1>
+<p>Discover the magic of nature's wonders at our turtle hatchery ticket categories! Choose your preferred experience and <b>book now!</b> </p>
+
+<h3>Adult - Sri Lankan</h3>
+
+
+<!--Increment and decrement button-->
+<div class="wrapper">
+    <span class="minusASL">-</span>
+    <span class="numASL">0</span>
+    <span class="plusASL">+</span>
+</div><br><br>
+
+<h3>Child - Sri Lankan</h3>
+
+
+<!--Increment and decrement button-->
+<div class="wrapper">
+    <span class="minusCSL">-</span>
+    <span class="numCSL">0</span>
+    <span class="plusCSL">+</span>
+</div><br><br>
+
+<h3>Adult - Foreigner</h3>
+
+
+<!--Increment and decrement button-->
+<div class="wrapper">
+    <span class="minusAF">-</span>
+    <span class="numAF">0</span>
+    <span class="plusAF">+</span>
+</div><br><br>
+
+
+<h3>Child - Foreigner</h3>
+
+
+<!--Increment and decrement button-->
+<div class="wrapper">
+    <span class="minusCF">-</span>
+    <span class="numCF">0</span>
+    <span class="plusCF">+</span>
+</div><br><br>
+
+<h3>Infant - Free of charge</h3><br><br>
+
+
+<h1>Duration of stay</h1>
+<p>Please enter the times you will be visiting the hatchery. Note that the price point varies if selected at peak times.</p>
+
+<!--Duration timeslot-->
+
+<select name="timeslot" id="timeslot" multiple x-data="{selectedValues: [] }" x-init="loadSelectedValues()" x-on:change="updateLocalStorage()">
+    <option value="7.00-8.00">7.00-8.00am</option>
+    <option value="8.00-9.00">8.00-9.00am</option>
+    <option value="9.00-10.00">9.00-10.00am (Peak)</option>
+    <option value="10.00-11.00">10.00-11.00am(Peak)</option>
+    <option value="11.00-12.00">11.00-12.00pm</option>
+    <option value="12.00-1.00">12.00-1.00pm</option>
+    <option value="1.00-2.00">1.00-2.00pm</option>
+    <option value="7.00-8.00">2.00-3.00pm</option>
+    <option value="7.00-8.00">3.00-4.00pm</option>
+    <option value="7.00-8.00">4.00-5.00pm</option>
+    <option value="7.00-8.00">5.00-6.00pm(Peak)</option>
+</select>
+<br><br>
+
+<h4> Customers will be charged based on 1 hour based time slots.</h4><br>
+<p>Charge per one Normal hour for Foreigner Adult - 10 USD</p>
+<p>Charge per one Peak hour for Foreigner Adult - 13 USD</p>
+<p>Charge per one Normal hour for Foreigner Child - 5 USD</p>
+<p>Charge per one Peak hour for Foreigner Child - 8 USD</p>
+<p>Charge per one Normal hour for SL Adult - 4 USD</p>
+<p>Charge per one Peak hour for SL Adult - 6 USD</p>
+<p>Charge per one Normal hour for SL Child - 2 USD</p>
+<p>Charge per one Peak hour for SL Child - 3 USD</p>
+<p>Infants - Free of Charge</p>
+
+
+<!--Table comes in here-->
+
+</div>
+<!--Continue Button-->
+<br><br>
+<div class="continuebtn">
+    <a href="details.html"><span>Continue with purchase</span></a>
+  </div>
+  
+  
+
+<script>
+    /*Increment and decrement button for Adult Srilankan (ASL)*/
+const plusASL = document.querySelector(".plusASL"),
+minusASL = document.querySelector(".minusASL"),
+numASL = document.querySelector(".numASL");
+
+let a = 0;
+
+plusASL.addEventListener("click", () => {
+    a++;
+    a = (a < 10) ? "0" + a : a;  //to get the zero in front of 1,2 etc. till 9.
+    numASL.innerText = a;
+    console.log(a);
+});
+
+
+minusASL.addEventListener("click", ()=>{
+    if (a > 0){
+    a--;
+    a = (a < 10) ? "0" + a : a;  //to get the zero in front of 1,2 etc. till 9.
+    numASL.innerText = a;
+    console.log(a);
+    }
+});
+
+
+
+/*Increment and decrement button for Child Srilankan (CSL)*/
+const plusCSL = document.querySelector(".plusCSL"),
+minusCSL = document.querySelector(".minusCSL"),
+numCSL = document.querySelector(".numCSL");
+
+let b = 0;
+
+plusCSL.addEventListener("click", ()=>{
+    b++;
+    b = (b < 10) ? "0" + b : b;  //to get the zero in front of 1,2 etc. till 9.
+    numCSL.innerText = b;
+    console.log(b);
+});
+
+
+minusCSL.addEventListener("click", ()=>{
+    if (b > 0){
+    b--;
+    b = (b < 10) ? "0" + b : b;  //to get the zero in front of 1,2 etc. till 9.
+    numCSL.innerText = b;
+    console.log(b);
+    }
+});
+
+
+
+/*Increment and decrement button for Adult Foreigner (AF)*/
+const plusAF = document.querySelector(".plusAF"),
+minusAF = document.querySelector(".minusAF"),
+numAF = document.querySelector(".numAF");
+
+let c = 0;
+
+plusAF.addEventListener("click", ()=>{
+    c++;
+    c = (c < 10) ? "0" + c : c;  //to get the zero in front of 1,2 etc. till 9.
+    numAF.innerText = c;
+    console.log(c);
+});
+
+
+minusAF.addEventListener("click", ()=>{
+    if (c > 0){
+    c--;
+    c = (c < 10) ? "0" + c : c;  //to get the zero in front of 1,2 etc. till 9.
+    numAF.innerText = c;
+    console.log(c);
+    }
+});
+
+
+/*Increment and decrement button for Child Foreigner (CF)*/
+const plusCF = document.querySelector(".plusCF"),
+minusCF = document.querySelector(".minusCF"),
+numCF = document.querySelector(".numCF");
+
+let d = 0;
+
+plusCF.addEventListener("click", ()=>{
+    d++;
+    d = (d < 10) ? "0" + d : d;  //to get the zero in front of 1,2 etc. till 9.
+    numCF.innerText = d;
+    console.log(d);
+});
+
+
+minusCF.addEventListener("click", ()=>{
+    if (d > 0){
+    d--;
+    d = (d < 10) ? "0" + d : d;  //to get the zero in front of 1,2 etc. till 9.
+    numCF.innerText = d;
+    console.log(d);
+    }
+});
+
+
+
+/*For duration part*/
+
+function updateLocalStorage() {
+    // Get the selected values from the select element
+    const selectElement = document.getElementById('timeslot');
+    const selectedValues = Array.from(selectElement.selectedOptions).map(option => option.value);
+
+
+    // Save the selected values to local storage
+    localStorage.setItem('selectedTimeslots', JSON.stringify(selectedValues));
+}
+    function loadSelectedValues() {
+    // Retrieve the selected values from local storage
+    const selectedTimeslots = JSON.parse(localStorage.getItem('selectedTimeslots'));
+
+    // If there are selected values, update the Alpine.js data
+    if (selectedTimeslots) {
+      Alpine.data('timeslot').selectedValues = selectedTimeslots;
+  }
+}
+</script>
 
 </body>
 

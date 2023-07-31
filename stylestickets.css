@@ -1,12 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 *{
     padding:0;
     margin:0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 body{
     font-family: 'Poppins', sans-serif;
+    align-items: center;
+    justify-content: center;
 }
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+  }
 h1,h2{
     font-family: sans-serif;
     font-weight: 400;
@@ -95,3 +107,217 @@ header .navlinks span{
 }
 
 /*header*/
+
+/*Increment and decrement button*/
+.wrapper{
+    height: 50px;
+    min-width: 100px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    width: 50px;
+}
+
+.wrapper span{
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.wrapper span.num{
+    font-size: 20px;
+    border-right: 2px solid rgba(0, 0, 0, 0.2);
+    border-left: 2px solid rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+}
+
+h3{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+
+/*continue with purchase button*/
+.continuebtn{
+    position:fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+  }
+  
+  .continuebtn a{
+    display: block;
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    font-family: sans-serif;
+    text-decoration: none;
+    color: #333;
+    border: 2px solid #333;
+    letter-spacing: 2px;
+    text-align: center;
+    position: relative;
+    transition: all .35s;
+  }
+  
+  .continuebtn a span{
+    position: relative;
+    z-index: 2;
+  }
+  
+  .continuebtn a:after{
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #1dc028;
+    transition: all .35s;
+  }
+  
+  .continuebtn a:hover{
+    color: #fff;
+  }
+  
+  .continuebtn a:hover:after{
+    width: 100%;
+  }
+
+
+
+
+
+  /*Embedded calendar*/
+.main-calendar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    min-width: none;
+    background: #5ae082;
+    border-radius: 70px;
+}
+
+.calendar-wrapper{
+    width: 950px;
+    background: #fff;
+    border-radius: 30px;
+}
+
+.calendar-wrapper header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 30px 10px;
+}
+
+header .current-date{
+    font-size: 1.45rem;
+    font-weight: 600;
+}
+
+header .icons span{
+    height: 38px;
+    width: 38px;
+    margin: 0 1px;
+    color: #878787;
+    font-size: 1.9rem;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 50%;
+    line-height: 38px;
+    background: #f2f2f2;
+}
+
+header .icons span:hover{
+    background: #e6e6e6;
+}
+
+header .icons span:last-child{
+    margin-right: -10px;
+}
+
+.calendar{
+    padding: 20px;
+}
+
+.calendar ul{
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.calendar .days{
+    margin-bottom: 20px;
+}
+
+.calendar .weeks li{
+    font-weight: 500;
+}
+
+.calendar ul li{
+    position: relative;
+    width: calc(100%/7);
+}
+
+.calendar .days li{
+    z-index: 1;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.days li.inactive{
+    color: #aaa;
+}
+.days li.active{
+    color: #fff;
+}
+
+.calendar .days li::before{
+    position: absolute;
+    content: "";
+    height: 40px;
+    width: 40px;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.calendar .days li.active {
+    color: #fff;
+    background: #9859b6;
+  }
+  
+.calendar .days li.active::before {
+    background: #fff;
+  }
+  
+.calendar .days li.active:hover::before {
+    background: #9859b6;
+  }
+  
+.calendar .days li.day:not(.active):hover::before {
+    background: #e6e6e6;
+  }
+
+
+.buy-tickets{
+    text-align: center;
+    margin-top: 20px;
+    background-color: #5ae082;
+    border-radius: 20px;
+}
+.buy-tickets h1{
+    font-family: 'Lumanosimo', cursive;
+}

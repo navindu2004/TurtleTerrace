@@ -508,7 +508,10 @@ header .menu-toggle:checked ~ .nav ul {
 /*To view for larger map*/
 
 .map-container {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .view-map-link {
@@ -525,3 +528,4 @@ header .menu-toggle:checked ~ .nav ul {
   z-index: 1;
 }
 /**/
+
