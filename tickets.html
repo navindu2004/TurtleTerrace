@@ -44,9 +44,15 @@
     <h1>Dates</h1>
     <p>Enter the date/s of visit:- </p>
 </div><br>
+<form onsubmit="onFormSubmit()">
+<div>
+    <label for="calendar">Calendar</label>
+    <input type="date" name="calendar" id="calendar">
+</div>
+</form><br><br>
 
 
-<!--Embedded Calendar-->
+<!--Embedded Calendar DONT REMOVE THIS THE TOTAL PART DOESNT COME IF YOU REMOVE THIS-->
 <div class="main-calendar">
 <div class="calendar-wrapper">
     <header>
@@ -181,19 +187,7 @@
     <tr>
         <td>
             <form autocomplete="off" onsubmit="onFormSubmit()">
-                <div>
-                    <label for="productCode">Product Code</label>
-                    <input type="text" name="productCode" id="productCode">
-                </div>
-                <div>
-                    <label for="product">Product Name</label>
-                    <input type="text" name="product" id="product">
-                </div>
 
-                <div>
-                        <label for="perPrice">Price</label>
-                        <input type="number" name="perPrice" id="perPrice">
-                </div>
             
                 <div class="form_action--button">
                     <input type="submit" value="Submit">
@@ -205,13 +199,11 @@
                 <table class="list" id="storeList">
                     <thead>
                         <tr>
-                            <th>Product Code</th>
-                            <th>Product Name</th>
+                            <th>Date</th>
                             <th>Adult - Sri Lankan</th>
                             <th>Child - Sri Lankan</th>
                             <th>Adult - Foreigner</th>
                             <th>Child - Foreigner</th>
-                            <th>Price</th>
                             <th>Total Payable (in USD)</th>
                         </tr>
                         <tbody>
@@ -340,7 +332,7 @@ minusCF.addEventListener("click", ()=>{
 }); -->
 
 
-
+<script>
 /*For duration part*/
 
 function updateLocalStorage() {

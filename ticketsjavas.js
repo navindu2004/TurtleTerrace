@@ -165,13 +165,11 @@ document.querySelector(".plusCF").addEventListener("click", () => {
 
 function readFormData(){
     var formData = {};
-    formData["productCode"] = document.getElementById("productCode").value;
-    formData["product"] = document.getElementById("product").value;
+    formData["calendar"] = document.getElementById("calendar").value;
     formData["asl"] = document.getElementById("asl").value;
     formData["csl"] = document.getElementById("csl").value;
     formData["af"] = document.getElementById("af").value;
     formData["cf"] = document.getElementById("cf").value;
-    formData["perPrice"] = document.getElementById("perPrice").value;
     return formData;
 }
 
@@ -199,23 +197,19 @@ function insertNewRecord(data){
     var table = document.getElementById("storeList").getElementsByTagName('tbody')[0];
     var newRow = table.insertRow(table.length);
     var cell1 = newRow.insertCell(0);
-    cell1.innerHTML = data.productCode;
+    cell1.innerHTML = data.calendar;
     var cell2 = newRow.insertCell(1);
-    cell2.innerHTML = data.product;
+    cell2.innerHTML = data.asl;
     var cell3 = newRow.insertCell(2);
-    cell3.innerHTML = data.asl;
+    cell3.innerHTML = data.csl;
     var cell4 = newRow.insertCell(3);
-    cell4.innerHTML = data.csl;
+    cell4.innerHTML = data.af;
     var cell5 = newRow.insertCell(4);
-    cell5.innerHTML = data.af;
+    cell5.innerHTML = data.cf;
     var cell6 = newRow.insertCell(5);
-    cell6.innerHTML = data.cf;
+    cell6.innerHTML = calculateTotalPrice(data);
     var cell7 = newRow.insertCell(6);
-    cell7.innerHTML = data.perPrice;
-    var cell8 = newRow.insertCell(7);
-    cell8.innerHTML = calculateTotalPrice(data);
-    var cell9 = newRow.insertCell(8);
-    cell9.innerHTML = `<button onClick='onEdit(this)'>Edit</button> <button onClick='onDelete(this)'>Delete</button>`;
+    cell7.innerHTML = `<button onClick='onEdit(this)'>Edit</button> <button onClick='onDelete(this)'>Delete</button>`;
 }
 
 
@@ -226,24 +220,20 @@ function insertNewRecord(data){
 //edit the data
 function onEdit(td){
     selectedRow = td.parentElement;
-    document.getElementById('productCode').value = selectedRow.cells[0].innerHTML;
-    document.getElementById('product').value = selectedRow.cells[1].innerHTML;
-    document.getElementById('asl').value = selectedRow.cells[2].innerHTML;
-    document.getElementById('csl').value = selectedRow.cells[3].innerHTML;
-    document.getElementById('af').value = selectedRow.cells[4].innerHTML;
-    document.getElementById('cf').value = selectedRow.cells[5].innerHTML;
-    document.getElementById('perPrice').value = selectedRow.cells[6].innerHTML;
+    document.getElementById('calendar').value = selectedRow.cells[0].innerHTML;
+    document.getElementById('asl').value = selectedRow.cells[1].innerHTML;
+    document.getElementById('csl').value = selectedRow.cells[2].innerHTML;
+    document.getElementById('af').value = selectedRow.cells[3].innerHTML;
+    document.getElementById('cf').value = selectedRow.cells[4].innerHTML;
 }
 
 function updateRecord(formData){
-selectedRow.cells[0].innerHTML = formData.productCode;
-selectedRow.cells[1].innerHTML = formData.product;
-selectedRow.cells[2].innerHTML = formData.asl;
-selectedRow.cells[3].innerHTML = formData.csl;
-selectedRow.cells[4].innerHTML = formData.af;
-selectedRow.cells[5].innerHTML = formData.cf;
-selectedRow.cells[6].innerHTML = formData.perPrice;
-selectedRow.cells[7].innerHTML = calculateTotalPrice(formData);
+selectedRow.cells[0].innerHTML = formData.calendar;
+selectedRow.cells[1].innerHTML = formData.asl;
+selectedRow.cells[2].innerHTML = formData.csl;
+selectedRow.cells[3].innerHTML = formData.af;
+selectedRow.cells[4].innerHTML = formData.cf;
+selectedRow.cells[5].innerHTML = calculateTotalPrice(formData);
 }
 
 //delete the data
@@ -257,12 +247,10 @@ function onDelete(td){
 
 //reset the data
 function resetForm(){
-    document.getElementById('productCode').value = '';
-    document.getElementById('product').value = '';
+    document.getElementById('calendar').value = '';
     document.getElementById('asl').value = '';
     document.getElementById('csl').value = '';
     document.getElementById('af').value = '';
     document.getElementById('cf').value = '';
-    document.getElementById('perPrice').value = '';
 }
 
