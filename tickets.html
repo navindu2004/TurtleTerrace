@@ -82,11 +82,11 @@
 
 <h3>Adult - Sri Lankan</h3>
 
-
+<form onsubmit="onFormSubmit()">
 <!--Increment and decrement button-->
 <div class="wrapper">
     <span class="minusASL">-</span>
-    <span class="numASL">0</span>
+    <span class="numASL" id="numASL">0</span>
     <span class="plusASL">+</span>
 </div><br><br>
 
@@ -96,7 +96,7 @@
 <!--Increment and decrement button-->
 <div class="wrapper">
     <span class="minusCSL">-</span>
-    <span class="numCSL">0</span>
+    <span class="numCSL" id="numCSL">0</span>
     <span class="plusCSL">+</span>
 </div><br><br>
 
@@ -106,7 +106,7 @@
 <!--Increment and decrement button-->
 <div class="wrapper">
     <span class="minusAF">-</span>
-    <span class="numAF">0</span>
+    <span class="numAF" id="numAF">0</span>
     <span class="plusAF">+</span>
 </div><br><br>
 
@@ -117,18 +117,36 @@
 <!--Increment and decrement button-->
 <div class="wrapper">
     <span class="minusCF">-</span>
-    <span class="numCF">0</span>
+    <span class="numCF" id="numCF">0</span>
     <span class="plusCF">+</span>
 </div><br><br>
 
-<h3>Infant - Free of charge</h3><br><br>
 
+<div>
+    <label for="asl">Adult - Sri Lankan</label>
+    <input type="number" name="asl" id="asl">
+</div><br><br>
+<div>
+    <label for="csl">Child - Sri Lankan</label>
+    <input type="number" name="csl" id="csl">
+</div><br><br>
+<div>
+    <label for="af">Adult - Foreigner</label>
+    <input type="number" name="af" id="af">
+</div><br><br>
+<div>
+    <label for="cf">Child - Foreigner</label>
+    <input type="number" name="cf" id="cf">
+</div><br><br>
+
+<h3>Infant - Free of charge</h3><br><br>
+</form>
 
 <h1>Duration of stay</h1>
 <p>Please enter the times you will be visiting the hatchery. Note that the price point varies if selected at peak times.</p>
 
 <!--Duration timeslot-->
-
+<form>
 <select name="timeslot" id="timeslot" multiple x-data="{selectedValues: [] }" x-init="loadSelectedValues()" x-on:change="updateLocalStorage()">
     <option value="7.00-8.00">7.00-8.00am</option>
     <option value="8.00-9.00">8.00-9.00am</option>
@@ -142,6 +160,7 @@
     <option value="7.00-8.00">4.00-5.00pm</option>
     <option value="7.00-8.00">5.00-6.00pm(Peak)</option>
 </select>
+</form>
 <br><br>
 
 <h4> Customers will be charged based on 1 hour based time slots.</h4><br>
@@ -170,10 +189,7 @@
                     <label for="product">Product Name</label>
                     <input type="text" name="product" id="product">
                 </div>
-                <div>
-                        <label for="qty">Qty</label>
-                        <input type="number" name="qty" id="qty">
-                </div>
+
                 <div>
                         <label for="perPrice">Price</label>
                         <input type="number" name="perPrice" id="perPrice">
@@ -191,8 +207,12 @@
                         <tr>
                             <th>Product Code</th>
                             <th>Product Name</th>
-                            <th>Qty</th>
+                            <th>Adult - Sri Lankan</th>
+                            <th>Child - Sri Lankan</th>
+                            <th>Adult - Foreigner</th>
+                            <th>Child - Foreigner</th>
                             <th>Price</th>
+                            <th>Total Payable (in USD)</th>
                         </tr>
                         <tbody>
                             
@@ -208,42 +228,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
 <!--Continue Button-->
 <br><br>
@@ -253,7 +237,7 @@
   
   
 
-<script>
+<!-- <script>
     /*Increment and decrement button for Adult Srilankan (ASL)*/
 const plusASL = document.querySelector(".plusASL"),
 minusASL = document.querySelector(".minusASL"),
@@ -353,7 +337,7 @@ minusCF.addEventListener("click", ()=>{
     numCF.innerText = d;
     console.log(d);
     }
-});
+}); -->
 
 
 
