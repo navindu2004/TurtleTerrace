@@ -295,3 +295,24 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 document.addEventListener('DOMContentLoaded', onFormSubmit);
+
+
+// Function to update the selected timeslots in the table header
+
+function updateTableHeader() {
+    const selectedTimeSlots = JSON.parse(localStorage.getItem('selectedtimeslot'));
+    if (selectedTimeSlots && selectedTimeSlots.length > 0) {
+      const tableHeaderRow = document.getElementById('tableHeaderRow');
+      tableHeaderRow.innerHTML = '<th>Date</th>'; // Reset the table header row
+
+      // Add the selected timeslots to the table header
+      selectedTimeSlots.forEach(timeslot => {
+        tableHeaderRow.innerHTML += `<th>${timeslot}</th>`;
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // ... Existing code ...
+    updateTableHeader();
+  });

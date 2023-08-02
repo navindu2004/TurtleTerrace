@@ -156,37 +156,37 @@
 <form onsubmit="onFormSubmit()">
 <div>
 
-    <input type="checkbox" name="timeslot" id="timeslot1" value="7.00-8.00" onchange="updateLocalStorage()">
+    <input type="checkbox" name="timeslot" id="timeslot1" value="7.00-8.00" onchange="updateLocalStorage()" id="time">
     <label for="timeslot1">7.00-8.00am</label><br>
     
-    <input type="checkbox" name="timeslot" id="timeslot2" value="8.00-9.00" onchange="updateLocalStorage()">
+    <input type="checkbox" name="timeslot" id="timeslot2" value="8.00-9.00" onchange="updateLocalStorage()" id="time">
     <label for="timeslot2">8.00-9.00am</label><br>
     
-    <input type="checkbox" name="timeslot" id="timeslot3" value="9.00-10.00" onchange="updateLocalStorage()">
+    <input type="checkbox" name="timeslot" id="timeslot3" value="9.00-10.00" onchange="updateLocalStorage()" id="time">
     <label for="timeslot3">9.00-10.00am (Peak)</label><br>
     
-    <input type="checkbox" name="timeslot" id="timeslot4" value="10.00-11.00" onchange="updateLocalStorage()">
+    <input type="checkbox" name="timeslot" id="timeslot4" value="10.00-11.00" onchange="updateLocalStorage()" id="time">
     <label for="timeslot4">10.00-11.00am (Peak)</label><br>
     
-    <input type="checkbox" name="timeslot" id="timeslot5" value="11.00-12.00" onchange="updateLocalStorage()">
+    <input type="checkbox" name="timeslot" id="timeslot5" value="11.00-12.00" onchange="updateLocalStorage()" id="time">
     <label for="timeslot5">11.00-12.00pm</label><br>
     
-    <input type="checkbox" name="timeslot" id="timeslot6" value="12.00-1.00" onchange="updateLocalStorage()">
+    <input type="checkbox" name="timeslot" id="timeslot6" value="12.00-1.00" onchange="updateLocalStorage()" id="time">
     <label for="timeslot6">12.00-1.00pm</label><br>
     
-    <input type="checkbox" name="timeslot" id="timeslot7" value="1.00-2.00" onchange="updateLocalStorage()">
+    <input type="checkbox" name="timeslot" id="timeslot7" value="1.00-2.00" onchange="updateLocalStorage()" id="time">
     <label for="timeslot7">1.00-2.00pm</label><br>
     
-    <input type="checkbox" name="timeslot" id="timeslot8" value="2.00-3.00" onchange="updateLocalStorage()">
+    <input type="checkbox" name="timeslot" id="timeslot8" value="2.00-3.00" onchange="updateLocalStorage()" id="time">
     <label for="timeslot8">2.00-3.00pm</label><br>
     
-    <input type="checkbox" name="timeslot" id="timeslot9" value="3.00-4.00" onchange="updateLocalStorage()">
+    <input type="checkbox" name="timeslot" id="timeslot9" value="3.00-4.00" onchange="updateLocalStorage()" id="time">
     <label for="timeslot9">3.00-4.00pm</label><br>
     
-    <input type="checkbox" name="timeslot" id="timeslot10" value="4.00-5.00" onchange="updateLocalStorage()">
+    <input type="checkbox" name="timeslot" id="timeslot10" value="4.00-5.00" onchange="updateLocalStorage()" id="time">
     <label for="timeslot10">4.00-5.00pm</label><br>
     
-    <input type="checkbox" name="timeslot" id="timeslot11" value="5.00-6.00" onchange="updateLocalStorage()">
+    <input type="checkbox" name="timeslot" id="timeslot11" value="5.00-6.00" onchange="updateLocalStorage()" id="time">
     <label for="timeslot11">5.00-6.00pm (Peak)</label><br>
 
 </div>
@@ -229,7 +229,7 @@
             <td>
                 <table class="list" id="storeList">
                     <thead>
-                        <tr>
+                        <tr id="tableHeaderRow">
                             <th>Date</th>
                             <th>Adult - Sri Lankan</th>
                             <th>Child - Sri Lankan</th>
