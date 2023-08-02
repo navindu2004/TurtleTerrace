@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lumanosimo&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body onload="loadSelectedValues()">
 
 <header>
     <div class="content flex_space">
@@ -49,11 +49,12 @@
     <label for="calendar">Calendar</label>
     <input type="date" name="calendar" id="calendar">
 </div>
-</form><br><br>
+<br><br>
+</form>
 
 
 <!--Embedded Calendar DONT REMOVE THIS THE TOTAL PART DOESNT COME IF YOU REMOVE THIS-->
-<div class="main-calendar">
+<!-- <div class="main-calendar">
 <div class="calendar-wrapper">
     <header>
         <p class="current-date">August 2023</p>
@@ -76,7 +77,7 @@
         </ul>
     </div>
 </div>
-</div>
+</div> -->
 
 
 
@@ -152,22 +153,51 @@
 <p>Please enter the times you will be visiting the hatchery. Note that the price point varies if selected at peak times.</p>
 
 <!--Duration timeslot-->
-<form>
-<select name="timeslot" id="timeslot" multiple x-data="{selectedValues: [] }" x-init="loadSelectedValues()" x-on:change="updateLocalStorage()">
-    <option value="7.00-8.00">7.00-8.00am</option>
-    <option value="8.00-9.00">8.00-9.00am</option>
-    <option value="9.00-10.00">9.00-10.00am (Peak)</option>
-    <option value="10.00-11.00">10.00-11.00am(Peak)</option>
-    <option value="11.00-12.00">11.00-12.00pm</option>
-    <option value="12.00-1.00">12.00-1.00pm</option>
-    <option value="1.00-2.00">1.00-2.00pm</option>
-    <option value="7.00-8.00">2.00-3.00pm</option>
-    <option value="7.00-8.00">3.00-4.00pm</option>
-    <option value="7.00-8.00">4.00-5.00pm</option>
-    <option value="7.00-8.00">5.00-6.00pm(Peak)</option>
-</select>
+<form onsubmit="onFormSubmit()">
+<div>
+
+    <input type="checkbox" name="timeslot" id="timeslot1" value="7.00-8.00" onchange="updateLocalStorage()">
+    <label for="timeslot1">7.00-8.00am</label><br>
+    
+    <input type="checkbox" name="timeslot" id="timeslot2" value="8.00-9.00" onchange="updateLocalStorage()">
+    <label for="timeslot2">8.00-9.00am</label><br>
+    
+    <input type="checkbox" name="timeslot" id="timeslot3" value="9.00-10.00" onchange="updateLocalStorage()">
+    <label for="timeslot3">9.00-10.00am (Peak)</label><br>
+    
+    <input type="checkbox" name="timeslot" id="timeslot4" value="10.00-11.00" onchange="updateLocalStorage()">
+    <label for="timeslot4">10.00-11.00am (Peak)</label><br>
+    
+    <input type="checkbox" name="timeslot" id="timeslot5" value="11.00-12.00" onchange="updateLocalStorage()">
+    <label for="timeslot5">11.00-12.00pm</label><br>
+    
+    <input type="checkbox" name="timeslot" id="timeslot6" value="12.00-1.00" onchange="updateLocalStorage()">
+    <label for="timeslot6">12.00-1.00pm</label><br>
+    
+    <input type="checkbox" name="timeslot" id="timeslot7" value="1.00-2.00" onchange="updateLocalStorage()">
+    <label for="timeslot7">1.00-2.00pm</label><br>
+    
+    <input type="checkbox" name="timeslot" id="timeslot8" value="2.00-3.00" onchange="updateLocalStorage()">
+    <label for="timeslot8">2.00-3.00pm</label><br>
+    
+    <input type="checkbox" name="timeslot" id="timeslot9" value="3.00-4.00" onchange="updateLocalStorage()">
+    <label for="timeslot9">3.00-4.00pm</label><br>
+    
+    <input type="checkbox" name="timeslot" id="timeslot10" value="4.00-5.00" onchange="updateLocalStorage()">
+    <label for="timeslot10">4.00-5.00pm</label><br>
+    
+    <input type="checkbox" name="timeslot" id="timeslot11" value="5.00-6.00" onchange="updateLocalStorage()">
+    <label for="timeslot11">5.00-6.00pm (Peak)</label><br>
+
+</div>
 </form>
+
 <br><br>
+
+<h4>Total Duration: <span id="totalDuration">0</span> hours</h4><br>
+
+
+
 
 <h4> Customers will be charged based on 1 hour based time slots.</h4><br>
 <p>Charge per one Normal hour for Foreigner Adult - 10 USD</p>
@@ -179,6 +209,7 @@
 <p>Charge per one Normal hour for SL Child - 2 USD</p>
 <p>Charge per one Peak hour for SL Child - 3 USD</p>
 <p>Infants - Free of Charge</p>
+
 
 
 <!--Table comes in here-->
@@ -335,24 +366,24 @@ minusCF.addEventListener("click", ()=>{
 <script>
 /*For duration part*/
 
-function updateLocalStorage() {
-    // Get the selected values from the select element
-    const selectElement = document.getElementById('timeslot');
-    const selectedValues = Array.from(selectElement.selectedOptions).map(option => option.value);
+// function updateLocalStorage() {
+//     // Get the selected values from the select element
+//     const selectElement = document.getElementById('timeslot');
+//     const selectedValues = Array.from(selectElement.selectedOptions).map(option => option.value);
 
 
-    // Save the selected values to local storage
-    localStorage.setItem('selectedTimeslots', JSON.stringify(selectedValues));
-}
-    function loadSelectedValues() {
-    // Retrieve the selected values from local storage
-    const selectedTimeslots = JSON.parse(localStorage.getItem('selectedTimeslots'));
+//     // Save the selected values to local storage
+//     localStorage.setItem('selectedTimeslots', JSON.stringify(selectedValues));
+// }
+//     function loadSelectedValues() {
+//     // Retrieve the selected values from local storage
+//     const selectedTimeslots = JSON.parse(localStorage.getItem('selectedTimeslots'));
 
-    // If there are selected values, update the Alpine.js data
-    if (selectedTimeslots) {
-      Alpine.data('timeslot').selectedValues = selectedTimeslots;
-  }
-}
+//     // If there are selected values, update the Alpine.js data
+//     if (selectedTimeslots) {
+//       Alpine.data('timeslot').selectedValues = selectedTimeslots;
+//   }
+// }
 </script>
 
 </body>
