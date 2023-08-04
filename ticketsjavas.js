@@ -1,4 +1,4 @@
-//FOR THE CALENDAR
+// FOR THE CALENDAR
 // const daysTag = document.querySelector(".days"),
 // currentDate = document.querySelector(".current-date"),
 // prevNextIcon = document.querySelectorAll(".icons span");
@@ -78,7 +78,7 @@
 //     }
 //   }
 
-//END OF CALENDAR PART
+// END OF CALENDAR PART
   
 
 
@@ -281,6 +281,8 @@ function onFormSubmit(){
     else{
         updateRecord(formData);
 }
+updateLocalStorageTableData();
+resetForm();
 document.addEventListener('DOMContentLoaded', function() {
     const selectedTimeSlots = JSON.parse(localStorage.getItem('selectedtimeslot'));
     if (selectedTimeSlots && selectedTimeSlots.length > 0) {
@@ -316,3 +318,23 @@ function updateTableHeader() {
     // ... Existing code ...
     updateTableHeader();
   });
+
+  //function to store table data in local storage
+    function updateLocalStorageTableData() {
+        const tableData = [];
+        const tableRows = document.querySelectorAll('#storeList tbody tr');
+
+        tableRows.forEach(row => {
+            const rowData = {
+                calendar: row.cells[0].innerHTML,
+                asl: row.cells[1].innerHTML,
+                csl: row.cells[2].innerHTML,
+                af: row.cells[3].innerHTML,
+                cf: row.cells[4].innerHTML,
+                totalPrice: row.cells[5].innerHTML,
+    };
+
+    tableData.push(rowData);
+});
+localStorage.setItem('tableData', JSON.stringify(tableData));
+}

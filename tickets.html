@@ -53,7 +53,7 @@
 </form>
 
 
-<!--Embedded Calendar DONT REMOVE THIS THE TOTAL PART DOESNT COME IF YOU REMOVE THIS-->
+<!-- Embedded Calendar DONT REMOVE THIS THE TOTAL PART DOESNT COME IF YOU REMOVE THIS-->
 <!-- <div class="main-calendar">
 <div class="calendar-wrapper">
     <header>
@@ -163,16 +163,16 @@
     <label for="timeslot2">8.00-9.00am</label><br>
     
     <input type="checkbox" name="timeslot" id="timeslot3" value="9.00-10.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot3">9.00-10.00am (Peak)</label><br>
+    <label for="timeslot3">9.00-10.00am</label><br>
     
     <input type="checkbox" name="timeslot" id="timeslot4" value="10.00-11.00" onchange="updateLocalStorage()" id="time">
     <label for="timeslot4">10.00-11.00am (Peak)</label><br>
     
     <input type="checkbox" name="timeslot" id="timeslot5" value="11.00-12.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot5">11.00-12.00pm</label><br>
+    <label for="timeslot5">11.00-12.00pm (Peak)</label><br>
     
     <input type="checkbox" name="timeslot" id="timeslot6" value="12.00-1.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot6">12.00-1.00pm</label><br>
+    <label for="timeslot6">12.00-1.00pm (Peak)</label><br>
     
     <input type="checkbox" name="timeslot" id="timeslot7" value="1.00-2.00" onchange="updateLocalStorage()" id="time">
     <label for="timeslot7">1.00-2.00pm</label><br>
@@ -181,10 +181,10 @@
     <label for="timeslot8">2.00-3.00pm</label><br>
     
     <input type="checkbox" name="timeslot" id="timeslot9" value="3.00-4.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot9">3.00-4.00pm</label><br>
+    <label for="timeslot9">3.00-4.00pm (Peak)</label><br>
     
     <input type="checkbox" name="timeslot" id="timeslot10" value="4.00-5.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot10">4.00-5.00pm</label><br>
+    <label for="timeslot10">4.00-5.00pm (Peak)</label><br>
     
     <input type="checkbox" name="timeslot" id="timeslot11" value="5.00-6.00" onchange="updateLocalStorage()" id="time">
     <label for="timeslot11">5.00-6.00pm (Peak)</label><br>
@@ -257,8 +257,191 @@
 <div class="continuebtn">
     <a href="details.html"><span>Continue with purchase</span></a>
   </div>
-  
-  
+
+
+<!--Part using Alpine JS-->
+<!--Timeslots part-->
+
+
+<div x-data="tickets" style="display: flex; justify-content: space-between;">
+    <div>
+        <!-- Date -->
+        <div>
+            <label for="date">Date</label>
+            <input type="date" name="date" id="date" x-model="date">
+        </div>
+
+
+        <!-- Time slots to be selected-->
+        <div>
+            <label for="timeslot">Time Slot</label>
+            <div>
+
+                <!--Timeslots using the UL tag-->
+                <ul>
+                    <template x-for="(timeSlot, index) in openTimes" :key="index">
+                        <li
+                            x-bind:style="timeSlot.isPeak ? 'background: red' : 'background: green'"
+                            x-on:click="selectTimeSlot(index)">
+                            <label :for="timeSlot.title" x-text="timeSlot.title" style="cursor: pointer;"></label>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </div>
+
+        <!--Ticket type -->
+        <div x-show="selectedTimeSlots.length">
+            <label for="ticketType">Ticket Type</label>
+            <template x-for="(ticketType, index) in ticketTypes" :key="index">
+                <div>
+                    <label x-bind:for="ticketType.name" x-text="ticketType.name"></label>
+                    <div>
+                        <button type="button"
+                            x-on:click="ticketTypes[index].count = (ticketTypes[index].count - 1 > 0 ? ticketTypes[index].count - 1 : 0); calculate(ticketTypes[index])">-</button>
+                        <input type="number" x-model="ticketTypes[index].count" />
+                        <button
+                            x-on:click="ticketTypes[index].count = ticketTypes[index].count + 1; calculate(ticketTypes[index])">+</button>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <button type="button" x-on:click="addToTable">Add to Table</button>
+    </div>
+    <div>
+        hello !!!
+        <div x-text="JSON.stringify(ticketTypes)"></div>
+        Selected time
+        <!--Timeslots selected displayed here-->
+        <template x-for="timeIndex in selectedTimeSlots">
+            <div x-text="openTimes[timeIndex].title"></div>
+        </template>
+        <!--Timeslots selected finishes here-->
+    </div>
+    <button type="button" x-on:click="gotoCheckout">Goto Checkout</button>
+</div>
+
+
+<h2>Summary Table</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Sri Lankan Adult</th>
+            <th>Sri Lankan Child</th>
+            <th>Foreign Adult</th>
+            <th>Foreign Child</th>
+            <th>Peak</th>
+            <th>Off Peak</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <template x-for="(dataRow, index) in dataTable" :key="index">
+            <tr>
+                <td x-text="dataRow.date"></td>
+                <td x-text="dataRow.sriLankanAdult"></td>
+                <td x-text="dataRow.sriLankanAdult"></td>
+                <td x-text="dataRow.foreignAdult"></td>
+                <td x-text="dataRow.foreignChild"></td>
+                <td x-text="dataRow.peak"></td>
+                <td x-text="dataRow.normal"></td>
+                <td>
+                    <button x-on:click="editRow(index)">Edit</button>
+                    <button x-on:click="deleteRow(index)">Delete</button>
+                </td>
+            </tr>
+        </template>
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- <script>
     /*Increment and decrement button for Adult Srilankan (ASL)*/
@@ -364,6 +547,158 @@ minusCF.addEventListener("click", ()=>{
 
 
 <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('tickets', () => ({
+                date: null,
+                ticketTypes: [
+                    {
+                        name: 'Sri Lankan Adult',
+                        peak: 100,
+                        normal: 50,
+                        count: 0,
+                        total: 0
+                    },
+                    {
+                        name: 'Sri Lankan Child',
+                        peak: 50,
+                        normal: 25,
+                        count: 0,
+                        total: 0
+                    },
+                    {
+                        name: 'Foreign Adult',
+                        peak: 200,
+                        normal: 150,
+                        count: 0,
+                        total: 0
+                    },
+                    {
+                        name: 'Foreign Child',
+                        peak: 150,
+                        normal: 100,
+                        count: 0,
+                        total: 0
+                    },
+                    {
+                        name: 'Infant',
+                        peak: 0,
+                        normal: 0,
+                        count: 0,
+                        total: 0
+                    },
+                ],
+                openTimes: [
+                    {
+                        title: '7.00AM to 8.00AM',
+                        isPeak: false
+                    },
+                    {
+                        title: '8.00AM to 9.00AM',
+                        isPeak: false
+                    },
+                    {
+                        title: '9.00AM to 10.00AM',
+                        isPeak: false
+                    },
+                    {
+                        title: '10.00AM to 11.00AM',
+                        isPeak: true
+                    },
+                    {
+                        title: '11.00AM to 12.00PM',
+                        isPeak: true
+                    },
+                    {
+                        title: '12.00PM to 1.00PM',
+                        isPeak: true
+                    },
+                    {
+                        title: '1.00PM to 2.00PM',
+                        isPeak: false
+                    },
+                    {
+                        title: '2.00PM to 3.00PM',
+                        isPeak: false
+                    },
+                    {
+                        title: '3.00PM to 4.00PM',
+                        isPeak: true
+                    },
+                    {
+                        title: '4.00PM to 5.00PM',
+                        isPeak: true
+                    },
+                    {
+                        title: '5.00PM to 6.00PM',
+                        isPeak: true
+                    },
+                ],
+
+                selectedTimeSlots: [],
+
+                showTimes: false,
+                //------- Functions -------
+
+                selectTimeSlot(index) {
+
+                    // check if the index is already in the array
+                    if (this.selectedTimeSlots.includes(index)) {
+
+                        // remove the index from the array
+                        this.selectedTimeSlots = this.selectedTimeSlots.filter(item => item !== index);
+
+                    } else {
+
+                        // Todo - you should be able to select time slots in the past !!!
+
+                        // get the last element of the array
+                        let lastElement = this.selectedTimeSlots[this.selectedTimeSlots.length - 1];
+
+                        // add 1 to the last element and check if the value is equals to the index
+                        if (!this.selectedTimeSlots.length || index - 1 == lastElement) {
+
+                            // add the index to the array
+                            this.selectedTimeSlots.push(index);
+
+                        } else {
+                            alert('You can only select consecutive time slots');
+                        }
+                    }
+
+                    // sort the array
+                    this.selectedTimeSlots = this.selectedTimeSlots.sort();
+
+
+                    console.log(this.selectedTimeSlots);
+                },
+
+                calculate(ticketType) {
+
+                    let total = 0;
+
+                    this.selectedTimeSlots.forEach((timeSlotIndex) => {
+
+                        // calculate the total
+                        total += parseInt(ticketType.count * (this.openTimes[timeSlotIndex].isPeak ? ticketType.peak : ticketType.offPeak));
+                    });
+
+                    ticketType.total = total;
+                
+                },
+
+                gotoCheckout(){
+                    // store the data in the local storage
+                    localStorage.setItem('ticketTypes', JSON.stringify(this.ticketTypes));
+
+                    // redirect to the checkout page
+                    window.location.href = 'checkout.html';
+                }
+
+            }));
+        })
+
+</script>
+<pre>
 /*For duration part*/
 
 // function updateLocalStorage() {
@@ -384,7 +719,8 @@ minusCF.addEventListener("click", ()=>{
 //       Alpine.data('timeslot').selectedValues = selectedTimeslots;
 //   }
 // }
-</script>
+</pre>
+
 
 </body>
 
