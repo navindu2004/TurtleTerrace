@@ -254,9 +254,9 @@
 </div>
 <!--Continue Button-->
 <br><br>
-<div class="continuebtn">
+<!-- <div class="continuebtn">
     <a href="details.html"><span>Continue with purchase</span></a>
-  </div>
+  </div> -->
 
 
 <!--Part using Alpine JS-->
@@ -277,16 +277,13 @@
             <label for="timeslot">Time Slot</label>
             <div>
 
-                <!--Timeslots using the UL tag-->
-                <ul>
+                <select name="timeslot" id="timeslot" x-model="selectedTimeSlots" multiple>
                     <template x-for="(timeSlot, index) in openTimes" :key="index">
-                        <li
-                            x-bind:style="timeSlot.isPeak ? 'background: red' : 'background: green'"
-                            x-on:click="selectTimeSlot(index)">
-                            <label :for="timeSlot.title" x-text="timeSlot.title" style="cursor: pointer;"></label>
-                        </li>
+                        <option :value="index" x-bind:style="timeSlot.isPeak ? 'background: red' : 'background: green'">
+                            <span x-text="timeSlot.title"></span>
+                        </option>
                     </template>
-                </ul>
+                </select>
             </div>
         </div>
 
@@ -309,8 +306,49 @@
         <button type="button" x-on:click="addToTable">Add to Table</button>
     </div>
     <div>
-        hello !!!
-        <div x-text="JSON.stringify(ticketTypes)"></div>
+        <div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th  class="category-header">Category</th>
+                    <th>Peak</th>
+                    <th>Normal</th>
+                    <th>Count</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <template x-for="ticketType in ticketTypes">
+                            <div x-text="ticketType.name"></div>
+                        </template>
+                    <td>
+
+                        <template x-for="ticketType in ticketTypes">
+                            <div x-text="ticketType.peak"></div>
+                        </template>
+                    </td>
+                    <td>
+                        <template x-for="ticketType in ticketTypes">
+                            <div x-text="ticketType.normal"></div>
+                        </template>
+                    </td>
+                    <td>
+                        <template x-for="ticketType in ticketTypes">
+                            <div x-text="ticketType.count"></div>
+                        </template>
+                    </td>
+                    <td>
+                        <template x-for="ticketType in ticketTypes">
+                            <div x-text="ticketType.total"></div>
+                        </template>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
         Selected time
         <!--Timeslots selected displayed here-->
         <template x-for="timeIndex in selectedTimeSlots">
@@ -322,38 +360,6 @@
 </div>
 
 
-<h2>Summary Table</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Sri Lankan Adult</th>
-            <th>Sri Lankan Child</th>
-            <th>Foreign Adult</th>
-            <th>Foreign Child</th>
-            <th>Peak</th>
-            <th>Off Peak</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <template x-for="(dataRow, index) in dataTable" :key="index">
-            <tr>
-                <td x-text="dataRow.date"></td>
-                <td x-text="dataRow.sriLankanAdult"></td>
-                <td x-text="dataRow.sriLankanAdult"></td>
-                <td x-text="dataRow.foreignAdult"></td>
-                <td x-text="dataRow.foreignChild"></td>
-                <td x-text="dataRow.peak"></td>
-                <td x-text="dataRow.normal"></td>
-                <td>
-                    <button x-on:click="editRow(index)">Edit</button>
-                    <button x-on:click="deleteRow(index)">Delete</button>
-                </td>
-            </tr>
-        </template>
-    </tbody>
-</table>
 
 
 
@@ -550,6 +556,11 @@ minusCF.addEventListener("click", ()=>{
         document.addEventListener('alpine:init', () => {
             Alpine.data('tickets', () => ({
                 date: null,
+                init() {
+                this.ticketTypes.forEach((ticketType) => {
+                    this.calculate(ticketType);
+                });
+            },
                 ticketTypes: [
                     {
                         name: 'Sri Lankan Adult',
@@ -633,6 +644,7 @@ minusCF.addEventListener("click", ()=>{
                         isPeak: true
                     },
                 ],
+                
 
                 selectedTimeSlots: [],
 
@@ -670,6 +682,13 @@ minusCF.addEventListener("click", ()=>{
 
 
                     console.log(this.selectedTimeSlots);
+                    this.calculateTotal();
+                },
+
+                calculateTotal(ticketType) {
+                this.ticketTypes.forEach((ticketType) => {
+                    this.calculate(ticketType);
+                });
                 },
 
                 calculate(ticketType) {
@@ -679,7 +698,7 @@ minusCF.addEventListener("click", ()=>{
                     this.selectedTimeSlots.forEach((timeSlotIndex) => {
 
                         // calculate the total
-                        total += parseInt(ticketType.count * (this.openTimes[timeSlotIndex].isPeak ? ticketType.peak : ticketType.offPeak));
+                        total += parseInt(ticketType.count * (this.openTimes[timeSlotIndex].isPeak ? ticketType.peak : ticketType.normal));
                     });
 
                     ticketType.total = total;
@@ -695,31 +714,13 @@ minusCF.addEventListener("click", ()=>{
                 }
 
             }));
-        })
+            Alpine.init('tickets', (tickets) => {
+            tickets.init();
+        });
+        });
 
 </script>
-<pre>
-/*For duration part*/
 
-// function updateLocalStorage() {
-//     // Get the selected values from the select element
-//     const selectElement = document.getElementById('timeslot');
-//     const selectedValues = Array.from(selectElement.selectedOptions).map(option => option.value);
-
-
-//     // Save the selected values to local storage
-//     localStorage.setItem('selectedTimeslots', JSON.stringify(selectedValues));
-// }
-//     function loadSelectedValues() {
-//     // Retrieve the selected values from local storage
-//     const selectedTimeslots = JSON.parse(localStorage.getItem('selectedTimeslots'));
-
-//     // If there are selected values, update the Alpine.js data
-//     if (selectedTimeslots) {
-//       Alpine.data('timeslot').selectedValues = selectedTimeslots;
-//   }
-// }
-</pre>
 
 
 </body>
