@@ -12,23 +12,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Lumanosimo&display=swap" rel="stylesheet">
+
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
 </head>
 
-<body onload="loadSelectedValues()">
+<body>
 
 <header>
     <div class="content flex_space">
         <div class="logo">
-            <img src="images/logo.png" alt="">
+            <h1 class="logo-text"><span class="logspan">Turtle </span>Terrace</h1>
         </div>
         <div class="navlinks">
             <ul id="menulist">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#rooms">Rooms</a></li>
-                <li><a href="#pages">Pages</a></li>
-                <li><a href="#news">News</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="volunteer.html">Volunteer</a></li>
+                <li><a href="bentota.html">Bentota</a></li>
+                <li><a href="hikkaduwa_hatchery.html">Hikkaduwa</a></li>
                 <li><i class="fa fa-search"></i></li>
                 <li><button class="primary-btn">BOOK NOW</button></li>
             </ul>
@@ -44,13 +47,15 @@
     <h1>Dates</h1>
     <p>Enter the date/s of visit:- </p>
 </div><br>
-<form onsubmit="onFormSubmit()">
+
+<div x-data="tickets">
 <div>
-    <label for="calendar">Calendar</label>
-    <input type="date" name="calendar" id="calendar">
+<div>
+    <label for="date">Date</label>
+    <input type="date" name="date" id="date" x-model="date" x-on:change="updateDate">
 </div>
 <br><br>
-</form>
+
 
 
 <!-- Embedded Calendar DONT REMOVE THIS THE TOTAL PART DOESNT COME IF YOU REMOVE THIS-->
@@ -79,7 +84,29 @@
 </div>
 </div> -->
 
+<h1>Duration of stay</h1>
+<p>Please enter the times you will be visiting the hatchery. Note that the price point varies if selected at peak times.</p>
+<p>Peak hours are from:-</p>
+<p>10.00am to 1.00pm and 3.00 to 6.00pm</p>
 
+
+
+<!--Duration timeslot-->
+
+<div>
+    <label for="timeslot">Timeslot</label>
+
+    <div>
+
+        <select name="timeslot" id="timeslot" x-model="selectedTimeSlots" multiple>
+            <template x-for="(timeSlot, index) in openTimes" :key="index">
+                <option :value="index" >
+                    <span x-text="timeSlot.title"></span>
+                </option>
+            </template>
+        </select>
+    </div>
+</div><br><br>
 
 
 
@@ -87,10 +114,11 @@
 <h1>Ticket Categories</h1>
 <p>Discover the magic of nature's wonders at our turtle hatchery ticket categories! Choose your preferred experience and <b>book now!</b> </p>
 
-<h3>Adult - Sri Lankan</h3>
 
-<form onsubmit="onFormSubmit()">
-<!--Increment and decrement button-->
+
+
+<!-- Increment and decrement button
+        <h3>Adult - Sri Lankan</h3>
 <div class="wrapper">
     <span class="minusASL">-</span>
     <span class="numASL" id="numASL">0</span>
@@ -100,7 +128,7 @@
 <h3>Child - Sri Lankan</h3>
 
 
-<!--Increment and decrement button-->
+Increment and decrement button
 <div class="wrapper">
     <span class="minusCSL">-</span>
     <span class="numCSL" id="numCSL">0</span>
@@ -110,7 +138,7 @@
 <h3>Adult - Foreigner</h3>
 
 
-<!--Increment and decrement button-->
+Increment and decrement button
 <div class="wrapper">
     <span class="minusAF">-</span>
     <span class="numAF" id="numAF">0</span>
@@ -121,41 +149,33 @@
 <h3>Child - Foreigner</h3>
 
 
-<!--Increment and decrement button-->
+Increment and decrement button
 <div class="wrapper">
     <span class="minusCF">-</span>
     <span class="numCF" id="numCF">0</span>
     <span class="plusCF">+</span>
-</div><br><br>
+</div><br><br> -->
 
-
+<!--Ticket Type-->
 <div>
-    <label for="asl">Adult - Sri Lankan</label>
-    <input type="number" name="asl" id="asl">
-</div><br><br>
-<div>
-    <label for="csl">Child - Sri Lankan</label>
-    <input type="number" name="csl" id="csl">
-</div><br><br>
-<div>
-    <label for="af">Adult - Foreigner</label>
-    <input type="number" name="af" id="af">
-</div><br><br>
-<div>
-    <label for="cf">Child - Foreigner</label>
-    <input type="number" name="cf" id="cf">
-</div><br><br>
+    <label for="ticketType">Ticket Type</label>
+    <template x-for="(ticketType, index) in ticketTypes" :key="index">
+        <div>
+            <label x-bind:for="ticketType.name" x-text="ticketType.name"></label>
+            <div>
+                <button type="button"
+                    x-on:click="ticketTypes[index].count = (ticketTypes[index].count - 1 > 0 ? ticketTypes[index].count - 1 : 0); calculate(ticketTypes[index])">-</button>
+                <input type="number" x-model="ticketTypes[index].count" />
+                <button
+                    x-on:click="ticketTypes[index].count = ticketTypes[index].count + 1; calculate(ticketTypes[index])">+</button>
+            </div>
+        </div>
+    </template>
+</div>
+</div>
 
-<h3>Infant - Free of charge</h3><br><br>
-</form>
 
-<h1>Duration of stay</h1>
-<p>Please enter the times you will be visiting the hatchery. Note that the price point varies if selected at peak times.</p>
-
-<!--Duration timeslot-->
-<form onsubmit="onFormSubmit()">
-<div>
-
+<!-- 
     <input type="checkbox" name="timeslot" id="timeslot1" value="7.00-8.00" onchange="updateLocalStorage()" id="time">
     <label for="timeslot1">7.00-8.00am</label><br>
     
@@ -187,10 +207,9 @@
     <label for="timeslot10">4.00-5.00pm (Peak)</label><br>
     
     <input type="checkbox" name="timeslot" id="timeslot11" value="5.00-6.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot11">5.00-6.00pm (Peak)</label><br>
+    <label for="timeslot11">5.00-6.00pm (Peak)</label><br> -->
 
-</div>
-</form>
+
 
 <br><br>
 
@@ -210,383 +229,218 @@
 <p>Charge per one Peak hour for SL Child - 3 USD</p>
 <p>Infants - Free of Charge</p>
 
-
-
-<!--Table comes in here-->
-<div class="table-container">
-<table>
-    <tr>
-        <td>
-            <form autocomplete="off" onsubmit="onFormSubmit()">
-
-            
-                <div class="form_action--button">
-                    <input type="submit" value="Submit">
-                    <input type="reset" value="Reset">
-                </div>
-            </form>
-
-            <td>
-                <table class="list" id="storeList">
-                    <thead>
-                        <tr id="tableHeaderRow">
-                            <th>Date</th>
-                            <th>Adult - Sri Lankan</th>
-                            <th>Child - Sri Lankan</th>
-                            <th>Adult - Foreigner</th>
-                            <th>Child - Foreigner</th>
-                            <th>Total Payable (in USD)</th>
-                        </tr>
-                        <tbody>
-                            
-                        </tbody>
-                    </thead>
-                </table>
-            </td>
-        </td>
-    </tr>
-</table>
-</div>
-<script type="text/javascript" src="ticketsjavas.js"></script>
-
-
-
-</div>
-<!--Continue Button-->
 <br><br>
-<!-- <div class="continuebtn">
-    <a href="details.html"><span>Continue with purchase</span></a>
-  </div> -->
-
-
-<!--Part using Alpine JS-->
-<!--Timeslots part-->
-
-
-<div x-data="tickets" style="display: flex; justify-content: space-between;">
+<div>
     <div>
-        <!-- Date -->
-        <div>
-            <label for="date">Date</label>
-            <input type="date" name="date" id="date" x-model="date">
-        </div>
 
-
-        <!-- Time slots to be selected-->
-        <div>
-            <label for="timeslot">Time Slot</label>
-            <div>
-
-                <select name="timeslot" id="timeslot" x-model="selectedTimeSlots" multiple>
-                    <template x-for="(timeSlot, index) in openTimes" :key="index">
-                        <option :value="index" x-bind:style="timeSlot.isPeak ? 'background: red' : 'background: green'">
-                            <span x-text="timeSlot.title"></span>
-                        </option>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time Slots</th>
+                <th  class="category-header">Category</th>
+                <th>Peak (in USD)</th>
+                <th>Normal (in USD)</th>
+                <th>Count</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <span x-text="date"></span>
+                </td>
+                <td>
+                    <template x-for="timeIndex in selectedTimeSlots">
+                        <div x-text="openTimes[timeIndex].title"></div>
                     </template>
-                </select>
-            </div>
-        </div>
+                </td>
+                <td>
+                    <template x-for="ticketType in ticketTypes">
+                        <div x-text="ticketType.name">
+                        </div>
+                    </template>
+                <td>
 
-        <!--Ticket type -->
-        <div x-show="selectedTimeSlots.length">
-            <label for="ticketType">Ticket Type</label>
-            <template x-for="(ticketType, index) in ticketTypes" :key="index">
-                <div>
-                    <label x-bind:for="ticketType.name" x-text="ticketType.name"></label>
-                    <div>
-                        <button type="button"
-                            x-on:click="ticketTypes[index].count = (ticketTypes[index].count - 1 > 0 ? ticketTypes[index].count - 1 : 0); calculate(ticketTypes[index])">-</button>
-                        <input type="number" x-model="ticketTypes[index].count" />
-                        <button
-                            x-on:click="ticketTypes[index].count = ticketTypes[index].count + 1; calculate(ticketTypes[index])">+</button>
-                    </div>
-                </div>
-            </template>
-        </div>
-        <button type="button" x-on:click="addToTable">Add to Table</button>
-    </div>
+                    <template x-for="ticketType in ticketTypes">
+                        <div x-text="ticketType.peak"></div>
+                    </template>
+                </td>
+                <td>
+                    <template x-for="ticketType in ticketTypes">
+                        <div x-text="ticketType.normal"></div>
+                    </template>
+                </td>
+                <td>
+                    <template x-for="ticketType in ticketTypes">
+                        <div x-text="ticketType.count"></div>
+                    </template>
+                </td>
+                <td>
+                    <template x-for="ticketType in ticketTypes">
+                        <div x-text="ticketType.total"></div>
+                    </template>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <div>
-        <div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th  class="category-header">Category</th>
-                    <th>Peak</th>
-                    <th>Normal</th>
-                    <th>Count</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <template x-for="ticketType in ticketTypes">
-                            <div x-text="ticketType.name"></div>
-                        </template>
-                    <td>
-
-                        <template x-for="ticketType in ticketTypes">
-                            <div x-text="ticketType.peak"></div>
-                        </template>
-                    </td>
-                    <td>
-                        <template x-for="ticketType in ticketTypes">
-                            <div x-text="ticketType.normal"></div>
-                        </template>
-                    </td>
-                    <td>
-                        <template x-for="ticketType in ticketTypes">
-                            <div x-text="ticketType.count"></div>
-                        </template>
-                    </td>
-                    <td>
-                        <template x-for="ticketType in ticketTypes">
-                            <div x-text="ticketType.total"></div>
-                        </template>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
-        Selected time
-        <!--Timeslots selected displayed here-->
-        <template x-for="timeIndex in selectedTimeSlots">
-            <div x-text="openTimes[timeIndex].title"></div>
-        </template>
-        <!--Timeslots selected finishes here-->
+        <h4>Grand Total: <span x-text="grandTotal"></span> USD</h4>
     </div>
-    <button type="button" x-on:click="gotoCheckout">Goto Checkout</button>
+    </div>
+
+</div>
+
+</div>
+
+<div class="containerforbtn">
+<div class="continuebtn">
+    <a href="details.html" id="continuePurchaseBtn"><span>Continue with purchase</span></a>
+</div>
+</div>
+</div><br><br>
+
+
+
+
+
+<script type="text/javascript" src="ticketsjavas.js"></script>
 </div>
 
 
+</div>
+<br><br>
+
+
+
+
+
+<!--Footer part-->
+
+
+    <div class="page-wrapper">
+
+    </div>
+    <!-- //Page Wrapper-->
+  
+  
+    <div class="footer">
+      <div class="footer-content">
+  
+          <div class="footer-section about">
+              <h1 class="logo-text"><span>Turtle </span>Terrace</h1>
+              <p>Turtle Terrace Hikkaduwa is a turtle hatchery dedicated to preserving and conserving the different varieties of turtles in Sri-Lanka. We nurture baby-turtles until they are fit to be released to the wild.</p>
+              <div class="contact">
+                  <span><i class="fa fa-phone"></i> &nbsp; 123-456-789</span>
+                  <span><i class="fa fa-envelope"></i> &nbsp; info@turtleterrace.com</span>
+              </div>
+              <div class="socials">
+                  <a href="#"><i class="fa fa-facebook"></i></a>
+                  <a href="#"><i class="fa fa-instagram"></i></a>
+                  <a href="#"><i class="fa fa-twitter"></i></a>
+                  <a href="#"><i class="fa fa-youtube"></i></a>
+              </div>
+          </div>
+  
+          <div class="footer-section links">
+              <h2>Quick Links</h2>
+              <br>
+              <ul>
+                  <a href="index.html">
+                  
+                      <li>Home</li>
+                  </a>
+                  <a href="purchaseanddonate.html">
+                      <li>Donate Now</li>
+                  </a>
+                  <a href="hikkaduwa_hatchery.html">
+                      <li>Hikkaduwa</li>
+                  </a>
+                  <a href="gallery.html">
+                      <li>Gallery</li>
+                  </a>
+                  <a href="https://www.termsfeed.com/live/51c25cc4-3500-4f50-b863-8812eb9edc41">
+                      <li>Terms and Conditions</li>
+                  </a>
+              </ul>
+          </div>
+  
+          <div class="footer-section contact-form">
+              <h2>Contact Us</h2>
+              
+              <form action="bentota.html" method="post">
+                  <input type="email" name="email" class="text-input contact-input" placeholder="Your e-mail address...">
+                  <textarea name="message" class="text-input contact-input" placeholder="Your message..."></textarea>
+                  <button type="submit" class="btn btn-big contact-btn">
+                      <i class="fa fa-envelope"></i>
+                      Send
+                  </button>
+              </form>
+          </div>
+      </div>
+  
+      <div class="footer-bottom">
+          &copy; Turtle Terrace | Designed by Navindu Premaratne CB011235
+      </div>
+    </div>
+    <!-- //Footer -->
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <script>
-    /*Increment and decrement button for Adult Srilankan (ASL)*/
-const plusASL = document.querySelector(".plusASL"),
-minusASL = document.querySelector(".minusASL"),
-numASL = document.querySelector(".numASL");
-
-let a = 0;
-
-plusASL.addEventListener("click", () => {
-    a++;
-    a = (a < 10) ? "0" + a : a;  //to get the zero in front of 1,2 etc. till 9.
-    numASL.innerText = a;
-    console.log(a);
-});
-
-
-minusASL.addEventListener("click", ()=>{
-    if (a > 0){
-    a--;
-    a = (a < 10) ? "0" + a : a;  //to get the zero in front of 1,2 etc. till 9.
-    numASL.innerText = a;
-    console.log(a);
-    }
-});
-
-
-
-/*Increment and decrement button for Child Srilankan (CSL)*/
-const plusCSL = document.querySelector(".plusCSL"),
-minusCSL = document.querySelector(".minusCSL"),
-numCSL = document.querySelector(".numCSL");
-
-let b = 0;
-
-plusCSL.addEventListener("click", ()=>{
-    b++;
-    b = (b < 10) ? "0" + b : b;  //to get the zero in front of 1,2 etc. till 9.
-    numCSL.innerText = b;
-    console.log(b);
-});
-
-
-minusCSL.addEventListener("click", ()=>{
-    if (b > 0){
-    b--;
-    b = (b < 10) ? "0" + b : b;  //to get the zero in front of 1,2 etc. till 9.
-    numCSL.innerText = b;
-    console.log(b);
-    }
-});
-
-
-
-/*Increment and decrement button for Adult Foreigner (AF)*/
-const plusAF = document.querySelector(".plusAF"),
-minusAF = document.querySelector(".minusAF"),
-numAF = document.querySelector(".numAF");
-
-let c = 0;
-
-plusAF.addEventListener("click", ()=>{
-    c++;
-    c = (c < 10) ? "0" + c : c;  //to get the zero in front of 1,2 etc. till 9.
-    numAF.innerText = c;
-    console.log(c);
-});
-
-
-minusAF.addEventListener("click", ()=>{
-    if (c > 0){
-    c--;
-    c = (c < 10) ? "0" + c : c;  //to get the zero in front of 1,2 etc. till 9.
-    numAF.innerText = c;
-    console.log(c);
-    }
-});
-
-
-/*Increment and decrement button for Child Foreigner (CF)*/
-const plusCF = document.querySelector(".plusCF"),
-minusCF = document.querySelector(".minusCF"),
-numCF = document.querySelector(".numCF");
-
-let d = 0;
-
-plusCF.addEventListener("click", ()=>{
-    d++;
-    d = (d < 10) ? "0" + d : d;  //to get the zero in front of 1,2 etc. till 9.
-    numCF.innerText = d;
-    console.log(d);
-});
-
-
-minusCF.addEventListener("click", ()=>{
-    if (d > 0){
-    d--;
-    d = (d < 10) ? "0" + d : d;  //to get the zero in front of 1,2 etc. till 9.
-    numCF.innerText = d;
-    console.log(d);
-    }
-}); -->
 
 
 <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('tickets', () => ({
                 date: null,
+                grandTotal: 0,
+                selectedDate: '',
+                calculateGrandTotal() {
+                this.grandTotal = this.ticketTypes.reduce((total, ticketType) => {
+                    return total + ticketType.total;
+                }, 0);
+            },
+            updateDate() {
+                if (!this.selectedDates.includes(this.date)) {
+                    this.selectedDates.push(this.date);
+                }
+            },
+
                 init() {
                 this.ticketTypes.forEach((ticketType) => {
                     this.calculate(ticketType);
                 });
             },
+
                 ticketTypes: [
                     {
                         name: 'Sri Lankan Adult',
-                        peak: 100,
-                        normal: 50,
+                        peak: 6,
+                        normal: 4,
                         count: 0,
                         total: 0
                     },
                     {
                         name: 'Sri Lankan Child',
-                        peak: 50,
-                        normal: 25,
+                        peak: 3,
+                        normal: 2,
                         count: 0,
                         total: 0
                     },
                     {
                         name: 'Foreign Adult',
-                        peak: 200,
-                        normal: 150,
+                        peak: 13,
+                        normal: 10,
                         count: 0,
                         total: 0
                     },
                     {
                         name: 'Foreign Child',
-                        peak: 150,
-                        normal: 100,
+                        peak: 8,
+                        normal: 5,
                         count: 0,
                         total: 0
                     },
@@ -702,22 +556,36 @@ minusCF.addEventListener("click", ()=>{
                     });
 
                     ticketType.total = total;
-                
+                    this.calculateGrandTotal();
                 },
 
                 gotoCheckout(){
-                    // store the data in the local storage
-                    localStorage.setItem('ticketTypes', JSON.stringify(this.ticketTypes));
+                    const dataToStore = {
+                date: this.date,
+                selectedTimeSlots: this.selectedTimeSlots,
+                ticketTypes: this.ticketTypes,
+                grandTotal: this.grandTotal,
+                    };
 
+                    localStorage.setItem('purchaseData', JSON.stringify(dataToStore));
+                    
                     // redirect to the checkout page
-                    window.location.href = 'checkout.html';
+                    window.location.href = 'details.html';
                 }
 
             }));
             Alpine.init('tickets', (tickets) => {
             tickets.init();
-        });
-        });
+    
+            document.getElementById('continuePurchaseBtn').addEventListener('click', () => {
+            Alpine.store('tickets').gotoCheckout();
+    });
+  });
+});
+
+
+
+
 
 </script>
 

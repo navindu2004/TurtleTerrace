@@ -141,10 +141,14 @@
 </div>
 </div>
 
+<div id="checkoutData">
+    <!-- Display the retrieved data here -->
+</div>
+
 
   <script>
         document.addEventListener('alpine:init', () => {
-            Alpine.data('checkout', () => ({
+            Alpine.data('details', () => ({
                 guest: {
                     fullName: '',
                     mobile: '',
@@ -166,6 +170,35 @@
                 }
             }))
         })
+        document.addEventListener('DOMContentLoaded', () => {
+            const detailsDataDiv = document.getElementById('detailsData');
+
+            // Retrieve the stored data from local storage
+            const date = localStorage.getItem('date');
+            const selectedDate = localStorage.getItem('selectedDate');
+            const grandTotal = localStorage.getItem('grandTotal');
+            const ticketTypes = JSON.parse(localStorage.getItem('ticketTypes'));
+            const selectedTimeSlots = JSON.parse(localStorage.getItem('selectedTimeSlots'));
+
+            // Display the data in the checkoutDataDiv
+            detailsDataDiv.innerHTML = `
+                <h2>Date: ${date}</h2>
+                <h3>Selected Date: ${selectedDate}</h3>
+                <h3>Grand Total: ${grandTotal} USD</h3>
+                <h3>Selected Time Slots: ${selectedTimeSlots.join(', ')}</h3>
+                <h3>Ticket Types:</h3>
+                <ul>
+                    ${ticketTypes.map(ticketType => `<li>${ticketType.name}: ${ticketType.count}</li>`).join('')}
+                </ul>
+            `;
+
+            // Clear the stored data from local storage after displaying it
+            localStorage.removeItem('date');
+            localStorage.removeItem('selectedDate');
+            localStorage.removeItem('grandTotal');
+            localStorage.removeItem('ticketTypes');
+            localStorage.removeItem('selectedTimeSlots');
+        });
 
   </script>
 

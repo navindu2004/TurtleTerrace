@@ -14,6 +14,17 @@ document.getElementById('submit-btn').addEventListener('click', function() {
   
     alert('Values stored in local storage.');
   });
+
+
+const purchaseData = JSON.parse(localStorage.getItem('purchaseData'));
+
+if (purchaseData) {
+    const selectedDate = purchaseData.date;
+    const selectedTimeSlots = purchaseData.selectedTimeSlots;
+    const ticketTypes = purchaseData.ticketTypes;
+    const grandTotal = purchaseData.grandTotal;
+
+}
   
 
 
