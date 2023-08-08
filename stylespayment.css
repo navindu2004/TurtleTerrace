@@ -444,3 +444,7 @@ input::-webkit-outer-spin-button{
         flex-direction: row;
     }
 }
+
+.category-header{
+    width: 450px;
+}

@@ -6,15 +6,16 @@
   <title>Details Form</title>
   <link rel="stylesheet" href="stylesdetails.css">
   <script src="https://unpkg.com/alpinejs" defer></script>
+  <script src="detailsjs.js"></script>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css">
   <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
 
   
-        <!--Google Fonts-->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Lora&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+<!--Google Fonts-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -40,40 +41,39 @@
             </div>
         </div>
     </header>
-<br><br>
-<header>
-    <h1>Enter your details:</h1>
-</header>
-
-<div x-data="checkout" class="grid-container">
+<div class="main-grid-container">
+    <div class="grid-container-left">
+        <br>
+        <h1>Enter your details:</h1>
+<div x-data="getDetailsData()" class="grid-container">
 <form x-on:submit.prevent="gotoPayment">
   <div class="container">
 
     <label for="fullName">Full Name</label>
-    <input type="text" name="fullName" id="fullName" x-model="guest.fullName" required>
+    <input type="text" name="fullName" id="fullName" x-model="details.fullName" required>
 
     </div><br>
 
 <div class="container">
 
     <label for="mobile">Mobile</label>
-    <input type="tel" name="mobile" id="mobile" x-model="guest.mobile" required>
+    <input type="tel" name="mobile" id="mobile" x-model="details.mobile" required>
 
 </div>
 <br>
     <div class="container">
       <label for="email">Email:</label>
-      <input type="email" name="email" id="email" x-model="guest.email" required>
+      <input type="email" name="email" id="email" x-model="details.email" required>
     </div><br>
 
     <div class="container">
       <label for="confirm-email">Confirm Email:</label>
-      <input type="email" name="email" id="email" x-model="guest.email" required>
+      <input type="email" name="email" id="email" x-model="details.email" required>
     </div><br>
 
     <div class="container">
     <label for="gender">Gender</label>
-    <select type="gender" name="gender" id="gender" x-model="guest.gender" required>
+    <select type="gender" name="gender" id="gender" x-model="details.gender" required>
         <option value="male">Male</option>
         <option value="female">Female</option>
     </select>
@@ -85,10 +85,11 @@
         <a href="paymentpage.html">Submit</a>
     </button>
     </div>
-
-<br><br>
+</div>
+</div>
+<div class="grid-container-right">
 </form>
-<span x-text="JSON.stringify(guest)"></span>
+<span x-text="JSON.stringify(details)"></span>
 
 
 <div class="container2">
@@ -138,18 +139,20 @@
         <td>Row 9, Column 2</td>
     </tr>
 </table>
+<p>Date: <span id="date"></span></p>
+<p>Selected Time Slots: <span id="selectedTimeSlots"></span></p>
+<p>Ticket Types: <span id="ticketTypes"></span></p>
+<p>Grand Total: <span id="grandTotal"></span></p>
 </div>
 </div>
 
-<div id="checkoutData">
-    <!-- Display the retrieved data here -->
 </div>
 
 
   <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('details', () => ({
-                guest: {
+                details: {
                     fullName: '',
                     mobile: '',
                     email: '',
@@ -163,7 +166,7 @@
                 },
                 gotoPayment() {
                     // set the guest data to local storage
-                    localStorage.setItem('guest', JSON.stringify(this.guest))
+                    localStorage.setItem('details', JSON.stringify(this.details))
 
                     // redirect to payment page
                     window.location.href = 'payment.html'
@@ -171,7 +174,7 @@
             }))
         })
         document.addEventListener('DOMContentLoaded', () => {
-            const detailsDataDiv = document.getElementById('detailsData');
+            const detailsDataDiv = document.getElementById('ticketsData');
 
             // Retrieve the stored data from local storage
             const date = localStorage.getItem('date');
@@ -199,6 +202,62 @@
             localStorage.removeItem('ticketTypes');
             localStorage.removeItem('selectedTimeSlots');
         });
+
+
+
+        document.getElementById('submit-btn').addEventListener('click', function() {
+    const fullName = document.getElementById('full-name').value;
+    const countryCode = document.getElementById('country-code').value;
+    const mobileNumber = document.getElementById('mobile-number').value;
+    const email = document.getElementById('email').value;
+    const confirmEmail = document.getElementById('confirm-email').value;
+  
+    // Storing values in local storage
+    localStorage.setItem('fullName', fullName);
+    localStorage.setItem('countryCode', countryCode);
+    localStorage.setItem('mobileNumber', mobileNumber);
+    localStorage.setItem('email', email);
+    localStorage.setItem('confirmEmail', confirmEmail);
+  
+    alert('Values stored in local storage.');
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const storedDetails = localStorage.getItem('details');
+    if (storedDetails){
+        const detailsData = JSON.parse(storedDetails);
+        const fullNameInput = document.getElementById('fullName');
+    }
+    const date = JSON.parse(localStorage.getItem('purchaseDate'));
+    const selectedTimeSlots = JSON.parse(localStorage.getItem('selectedTimeSlots'));
+    const ticketTypes = JSON.parse(localStorage.getItem('ticketTypes'));
+    const grandTotal = localStorage.getItem('grandTotal');
+  
+ 
+    console.log('Selected Date:', date);
+    console.log('Selected Time Slots:', selectedTimeSlots);
+    console.log('Ticket Types:', ticketTypes);
+    console.log('Grand Total:', grandTotal);
+  })
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const dateElement = document.getElementById('date');
+  const selectedTimeSlotsElement = document.getElementById('selectedTimeSlots');
+  const grandTotalElement = document.getElementById('grandTotal');
+
+  const date = JSON.parse(localStorage.getItem('purchaseDate'));
+  const selectedTimeSlots = JSON.parse(localStorage.getItem('selectedTimeSlots'));
+  const ticketTypes = JSON.parse(localStorage.getItem('ticketTypes'));
+  const grandTotal = localStorage.getItem('grandTotal');
+
+  // Display the retrieved data on the page
+  dateElement.textContent = date;
+  selectedTimeSlotsElement.textContent = selectedTimeSlots.join(', '); // Convert array to a comma-separated string
+  grandTotalElement.textContent = grandTotal;
+
+  // Optionally, you can also display the ticket count and other details if needed
+});
 
   </script>
 

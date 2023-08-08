@@ -6,10 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buy Tickets</title>
     <link rel="stylesheet" href="stylestickets.css">
-    <script src="ticketsjavas.js" defer></script>
-    <script src="https://unpkg.com/alpinejs" defer></script>
+
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    
+<script src="ticketsjavas.js" defer></script>
+<script src="https://unpkg.com/alpinejs" defer></script>
+
 
     <link href="https://fonts.googleapis.com/css2?family=Lumanosimo&display=swap" rel="stylesheet">
 
@@ -48,7 +53,7 @@
     <p>Enter the date/s of visit:- </p>
 </div><br>
 
-<div x-data="tickets">
+<div x-data="getTicketsData()">
 <div>
 <div>
     <label for="date">Date</label>
@@ -56,33 +61,6 @@
 </div>
 <br><br>
 
-
-
-<!-- Embedded Calendar DONT REMOVE THIS THE TOTAL PART DOESNT COME IF YOU REMOVE THIS-->
-<!-- <div class="main-calendar">
-<div class="calendar-wrapper">
-    <header>
-        <p class="current-date">August 2023</p>
-        <div class="icons">
-            <span class="fa fa-chevron-left" id="prev"></span>
-            <span class="fa fa-chevron-right" id="next"></span>
-        </div>
-    </header>
-    <div class="calendar">
-        <ul class="weeks">
-            <li>Sun</li>
-            <li>Mon</li>
-            <li>Tue</li>
-            <li>Wed</li>
-            <li>Thur</li>
-            <li>Fri</li>
-            <li>Sat</li>
-        </ul>
-        <ul class="days">
-        </ul>
-    </div>
-</div>
-</div> -->
 
 <h1>Duration of stay</h1>
 <p>Please enter the times you will be visiting the hatchery. Note that the price point varies if selected at peak times.</p>
@@ -115,47 +93,6 @@
 <p>Discover the magic of nature's wonders at our turtle hatchery ticket categories! Choose your preferred experience and <b>book now!</b> </p>
 
 
-
-
-<!-- Increment and decrement button
-        <h3>Adult - Sri Lankan</h3>
-<div class="wrapper">
-    <span class="minusASL">-</span>
-    <span class="numASL" id="numASL">0</span>
-    <span class="plusASL">+</span>
-</div><br><br>
-
-<h3>Child - Sri Lankan</h3>
-
-
-Increment and decrement button
-<div class="wrapper">
-    <span class="minusCSL">-</span>
-    <span class="numCSL" id="numCSL">0</span>
-    <span class="plusCSL">+</span>
-</div><br><br>
-
-<h3>Adult - Foreigner</h3>
-
-
-Increment and decrement button
-<div class="wrapper">
-    <span class="minusAF">-</span>
-    <span class="numAF" id="numAF">0</span>
-    <span class="plusAF">+</span>
-</div><br><br>
-
-
-<h3>Child - Foreigner</h3>
-
-
-Increment and decrement button
-<div class="wrapper">
-    <span class="minusCF">-</span>
-    <span class="numCF" id="numCF">0</span>
-    <span class="plusCF">+</span>
-</div><br><br> -->
-
 <!--Ticket Type-->
 <div>
     <label for="ticketType">Ticket Type</label>
@@ -175,45 +112,9 @@ Increment and decrement button
 </div>
 
 
-<!-- 
-    <input type="checkbox" name="timeslot" id="timeslot1" value="7.00-8.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot1">7.00-8.00am</label><br>
-    
-    <input type="checkbox" name="timeslot" id="timeslot2" value="8.00-9.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot2">8.00-9.00am</label><br>
-    
-    <input type="checkbox" name="timeslot" id="timeslot3" value="9.00-10.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot3">9.00-10.00am</label><br>
-    
-    <input type="checkbox" name="timeslot" id="timeslot4" value="10.00-11.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot4">10.00-11.00am (Peak)</label><br>
-    
-    <input type="checkbox" name="timeslot" id="timeslot5" value="11.00-12.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot5">11.00-12.00pm (Peak)</label><br>
-    
-    <input type="checkbox" name="timeslot" id="timeslot6" value="12.00-1.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot6">12.00-1.00pm (Peak)</label><br>
-    
-    <input type="checkbox" name="timeslot" id="timeslot7" value="1.00-2.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot7">1.00-2.00pm</label><br>
-    
-    <input type="checkbox" name="timeslot" id="timeslot8" value="2.00-3.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot8">2.00-3.00pm</label><br>
-    
-    <input type="checkbox" name="timeslot" id="timeslot9" value="3.00-4.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot9">3.00-4.00pm (Peak)</label><br>
-    
-    <input type="checkbox" name="timeslot" id="timeslot10" value="4.00-5.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot10">4.00-5.00pm (Peak)</label><br>
-    
-    <input type="checkbox" name="timeslot" id="timeslot11" value="5.00-6.00" onchange="updateLocalStorage()" id="time">
-    <label for="timeslot11">5.00-6.00pm (Peak)</label><br> -->
-
-
 
 <br><br>
 
-<h4>Total Duration: <span id="totalDuration">0</span> hours</h4><br>
 
 
 
@@ -291,11 +192,11 @@ Increment and decrement button
 
 </div>
 
-</div>
+
 
 <div class="containerforbtn">
 <div class="continuebtn">
-    <a href="details.html" id="continuePurchaseBtn"><span>Continue with purchase</span></a>
+    <a href="details.html" id="continuePurchaseBtn" x-on:click="gotoCheckout"><span>Continue with purchase</span></a>
 </div>
 </div>
 </div><br><br>
@@ -304,7 +205,7 @@ Increment and decrement button
 
 
 
-<script type="text/javascript" src="ticketsjavas.js"></script>
+
 </div>
 
 
@@ -315,76 +216,6 @@ Increment and decrement button
 
 
 
-<!--Footer part-->
-
-
-    <div class="page-wrapper">
-
-    </div>
-    <!-- //Page Wrapper-->
-  
-  
-    <div class="footer">
-      <div class="footer-content">
-  
-          <div class="footer-section about">
-              <h1 class="logo-text"><span>Turtle </span>Terrace</h1>
-              <p>Turtle Terrace Hikkaduwa is a turtle hatchery dedicated to preserving and conserving the different varieties of turtles in Sri-Lanka. We nurture baby-turtles until they are fit to be released to the wild.</p>
-              <div class="contact">
-                  <span><i class="fa fa-phone"></i> &nbsp; 123-456-789</span>
-                  <span><i class="fa fa-envelope"></i> &nbsp; info@turtleterrace.com</span>
-              </div>
-              <div class="socials">
-                  <a href="#"><i class="fa fa-facebook"></i></a>
-                  <a href="#"><i class="fa fa-instagram"></i></a>
-                  <a href="#"><i class="fa fa-twitter"></i></a>
-                  <a href="#"><i class="fa fa-youtube"></i></a>
-              </div>
-          </div>
-  
-          <div class="footer-section links">
-              <h2>Quick Links</h2>
-              <br>
-              <ul>
-                  <a href="index.html">
-                  
-                      <li>Home</li>
-                  </a>
-                  <a href="purchaseanddonate.html">
-                      <li>Donate Now</li>
-                  </a>
-                  <a href="hikkaduwa_hatchery.html">
-                      <li>Hikkaduwa</li>
-                  </a>
-                  <a href="gallery.html">
-                      <li>Gallery</li>
-                  </a>
-                  <a href="https://www.termsfeed.com/live/51c25cc4-3500-4f50-b863-8812eb9edc41">
-                      <li>Terms and Conditions</li>
-                  </a>
-              </ul>
-          </div>
-  
-          <div class="footer-section contact-form">
-              <h2>Contact Us</h2>
-              
-              <form action="bentota.html" method="post">
-                  <input type="email" name="email" class="text-input contact-input" placeholder="Your e-mail address...">
-                  <textarea name="message" class="text-input contact-input" placeholder="Your message..."></textarea>
-                  <button type="submit" class="btn btn-big contact-btn">
-                      <i class="fa fa-envelope"></i>
-                      Send
-                  </button>
-              </form>
-          </div>
-      </div>
-  
-      <div class="footer-bottom">
-          &copy; Turtle Terrace | Designed by Navindu Premaratne CB011235
-      </div>
-    </div>
-    <!-- //Footer -->
-
 
 
 
@@ -394,10 +225,10 @@ Increment and decrement button
 
 <script>
         document.addEventListener('alpine:init', () => {
-            Alpine.data('tickets', () => ({
+            Alpine.data('getTicketsData', () => ({
                 date: null,
                 grandTotal: 0,
-                selectedDate: '',
+                selectedDates: [],
                 calculateGrandTotal() {
                 this.grandTotal = this.ticketTypes.reduce((total, ticketType) => {
                     return total + ticketType.total;
@@ -561,36 +392,100 @@ Increment and decrement button
 
                 gotoCheckout(){
                     const dataToStore = {
-                date: this.date,
-                selectedTimeSlots: this.selectedTimeSlots,
-                ticketTypes: this.ticketTypes,
-                grandTotal: this.grandTotal,
+                selected_date: this.date,
+                selected_time_slot: this.selectedTimeSlots.map((timeIndex) =>this.openTimes[timeIndex].title),
+                srilankanAdult: this.ticketTypes[0].count,
+                srilankanChild: this.ticketTypes[1].count,
+                foreignAdult: this.ticketTypes[2].count,
+                foreignChild: this.ticketTypes[3].count,
+                infant: this.ticketTypes[4].count,
+                grandTotal: this.grandTotal
                     };
+                    const jsonData = JSON.stringify(dataToStore);
 
-                    localStorage.setItem('purchaseData', JSON.stringify(dataToStore));
+                    localStorage.setItem('ticketData', jsonData);
                     
+
                     // redirect to the checkout page
                     window.location.href = 'details.html';
                 }
-
             }));
-            Alpine.init('tickets', (tickets) => {
-            tickets.init();
-    
-            document.getElementById('continuePurchaseBtn').addEventListener('click', () => {
-            Alpine.store('tickets').gotoCheckout();
-    });
-  });
+
 });
-
-
-
 
 
 </script>
 
-
-
 </body>
+
+<!--Footer part-->
+
+
+<div class="page-wrapper">
+
+</div>
+<!-- //Page Wrapper-->
+
+
+<div class="footer">
+  <div class="footer-content">
+
+      <div class="footer-section about">
+          <h1 class="logo-text"><span>Turtle </span>Terrace</h1>
+          <p>Turtle Terrace Hikkaduwa is a turtle hatchery dedicated to preserving and conserving the different varieties of turtles in Sri-Lanka. We nurture baby-turtles until they are fit to be released to the wild.</p>
+          <div class="contact">
+              <span><i class="fa fa-phone"></i> &nbsp; 123-456-789</span>
+              <span><i class="fa fa-envelope"></i> &nbsp; info@turtleterrace.com</span>
+          </div>
+          <div class="socials">
+              <a href="#"><i class="fa fa-facebook"></i></a>
+              <a href="#"><i class="fa fa-instagram"></i></a>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+              <a href="#"><i class="fa fa-youtube"></i></a>
+          </div>
+      </div>
+
+      <div class="footer-section links">
+          <h2>Quick Links</h2>
+          <br>
+          <ul>
+              <a href="index.html">
+              
+                  <li>Home</li>
+              </a>
+              <a href="purchaseanddonate.html">
+                  <li>Donate Now</li>
+              </a>
+              <a href="hikkaduwa_hatchery.html">
+                  <li>Hikkaduwa</li>
+              </a>
+              <a href="gallery.html">
+                  <li>Gallery</li>
+              </a>
+              <a href="https://www.termsfeed.com/live/51c25cc4-3500-4f50-b863-8812eb9edc41">
+                  <li>Terms and Conditions</li>
+              </a>
+          </ul>
+      </div>
+
+      <div class="footer-section contact-form">
+          <h2>Contact Us</h2>
+          
+          <form action="bentota.html" method="post">
+              <input type="email" name="email" class="text-input contact-input" placeholder="Your e-mail address...">
+              <textarea name="message" class="text-input contact-input" placeholder="Your message..."></textarea>
+              <button type="submit" class="btn btn-big contact-btn">
+                  <i class="fa fa-envelope"></i>
+                  Send
+              </button>
+          </form>
+      </div>
+  </div>
+
+  <div class="footer-bottom">
+      &copy; Turtle Terrace | Designed by Navindu Premaratne CB011235
+  </div>
+</div>
+<!-- //Footer -->
 
 </html>

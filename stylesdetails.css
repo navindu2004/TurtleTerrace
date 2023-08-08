@@ -685,3 +685,14 @@ tr:nth-child(even) {
 tr:hover {
     background-color: #e6e6e6;
 }
+
+.main-grid-container{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 20px;
+    margin: 20px 0;
+}
+
+.grid-container-left{
+    padding-left: 20px;
+}
