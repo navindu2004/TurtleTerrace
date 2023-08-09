@@ -41,14 +41,14 @@
             </div>
         </div>
     </header>
-<div class="main-grid-container">
+<div class="main-grid-container"  x-data="details">
     <div class="grid-container-left">
         <br>
         <h1>Enter your details:</h1>
-<div x-data="getDetailsData()" class="grid-container">
+<div class="grid-container">
 <form x-on:submit.prevent="gotoPayment">
   <div class="container">
-
+    <br>
     <label for="fullName">Full Name</label>
     <input type="text" name="fullName" id="fullName" x-model="details.fullName" required>
 
@@ -68,7 +68,8 @@
 
     <div class="container">
       <label for="confirm-email">Confirm Email:</label>
-      <input type="email" name="email" id="email" x-model="details.email" required>
+      <input type="email" name="confirmEmail" id="confirm-email" x-model="details.confirmEmail" required>
+      <p x-show="details.email != details.confirmEmail" style="color:red" class="error-message">Emails do not match.</p>
     </div><br>
 
     <div class="container">
@@ -79,17 +80,18 @@
     </select>
 
     </div>
-
+<br>
     <div>
-    <button id="submit-btn">
-        <a href="paymentpage.html">Submit</a>
+    <button id="submit-btn" x-bind:disabled="details.email !== details.confirmEmail">
+        <a href="paymentpage.html" x-on:click="storeUserDetails">Submit</a>
     </button>
     </div>
+</form>
 </div>
+
 </div>
 <div class="grid-container-right">
-</form>
-<span x-text="JSON.stringify(details)"></span>
+
 
 
 <div class="container2">
@@ -100,15 +102,15 @@
   <table border="3">
     <tr>
         <th>Date</th>
-        <td>Column 2</th>
+        <td><p x-text="selected_date"></p></th>
     </tr>
     <tr>
         <th>Time</th>
-        <td>Row 1, Column 2</td>
+        <td><p x-text="selected_time_slot.join(', ')"></p></td>
     </tr>
     <tr>
         <th>Duration</th>
-        <td>Row 2, Column 2</td>
+        <td><p x-text="duration + ' hours'"></p></td>
     </tr>
     <tr>
         <th>Tickets</th>
@@ -116,33 +118,30 @@
     </tr>
     <tr>
         <th>SL Adult</th>
-        <td>Row 4, Column 2</td>
+        <td><p x-text="srilankanAdult + ' USD'"></p></td>
     </tr>
     <tr>
         <th>SL Child</th>
-        <td>Row 5, Column 2</td>
+        <td><p x-text="srilankanChild  + ' USD'"></p></td>
     </tr>
     <tr>
         <th>Foreigner Adult</th>
-        <td>Row 6, Column 2</td>
+        <td><p x-text="foreignAdult  + ' USD'"></p></td>
     </tr>
     <tr>
         <th>Foreigner Child</th>
-        <td>Row 7, Column 2</td>
+        <td><p x-text="foreignChild  + ' USD'"></p></td>
     </tr>
     <tr>
         <th>Infant</th>
-        <td>Row 8, Column 2</td>
+        <td><p x-text="infant  + ' USD'"></p></td>
     </tr>
     <tr>
         <th>Total Payable</th>
-        <td>Row 9, Column 2</td>
+        <td><p x-text="grandTotal + ' USD'"></p></td>
     </tr>
 </table>
-<p>Date: <span id="date"></span></p>
-<p>Selected Time Slots: <span id="selectedTimeSlots"></span></p>
-<p>Ticket Types: <span id="ticketTypes"></span></p>
-<p>Grand Total: <span id="grandTotal"></span></p>
+
 </div>
 </div>
 
@@ -156,9 +155,32 @@
                     fullName: '',
                     mobile: '',
                     email: '',
-                    gender: ''
+                    confirmEmail: '',
+                    gender: '',
+                    selected_date: '',
+                    duration: '',
+                    selected_time_slot: [],
+                    srilankanAdult: 0,
+                    srilankanChild: 0,
+                    foreignAdult: 0,
+                    foreignChild: 0,
+                    infant: 0,
+                    grandTotal: 0,
                 },
                 init() {
+                    const storedTicketData = localStorage.getItem('ticketData');
+                    if (storedTicketData) {
+                        const ticketData = JSON.parse(storedTicketData);
+                        this.selected_date = ticketData.selected_date;
+                        this.selected_time_slot = ticketData.selected_time_slot;
+                        this.duration = ticketData.duration;
+                        this.srilankanAdult = ticketData.srilankanAdult;
+                        this.srilankanChild = ticketData.srilankanChild;
+                        this.foreignAdult = ticketData.foreignAdult;
+                        this.foreignChild = ticketData.foreignChild;
+                        this.infant = ticketData.infant;
+                        this.grandTotal = ticketData.grandTotal;
+                    }
                     const input = document.querySelector("#mobile");
                     window.intlTelInput(input, {
                         utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
@@ -166,43 +188,64 @@
                 },
                 gotoPayment() {
                     // set the guest data to local storage
-                    localStorage.setItem('details', JSON.stringify(this.details))
+                    localStorage.setItem('userDetails', JSON.stringify(this.userDetails));
 
                     // redirect to payment page
                     window.location.href = 'payment.html'
-                }
-            }))
+                },
+
+                storeUserDetails() {
+                const userDetails = {
+                fullName: this.details.fullName,
+                email: this.details.email,
+                confirmEmail: this.details.confirmEmail,
+                gender: this.details.gender
+            };
+            localStorage.setItem('userDetails', JSON.stringify(userDetails));
+            window.location.href = 'paymentpage.html';
+
+        },
+            }
+        ))
         })
+        
         document.addEventListener('DOMContentLoaded', () => {
-            const detailsDataDiv = document.getElementById('ticketsData');
+        const storedTicketData = localStorage.getItem('ticketData');
+        if (storedTicketData) {
+            const ticketData = JSON.parse(storedTicketData);
+            const {
+                selected_date,
+                selected_time_slot,
+                srilankanAdult,
+                srilankanChild,
+                foreignAdult,
+                foreignChild,
+                infant,
+                grandTotal
+            } = ticketData;
 
-            // Retrieve the stored data from local storage
-            const date = localStorage.getItem('date');
-            const selectedDate = localStorage.getItem('selectedDate');
-            const grandTotal = localStorage.getItem('grandTotal');
-            const ticketTypes = JSON.parse(localStorage.getItem('ticketTypes'));
-            const selectedTimeSlots = JSON.parse(localStorage.getItem('selectedTimeSlots'));
+            // Display the retrieved data on the page
+            const dateElement = document.getElementById('date');
+            const selectedTimeSlotsElement = document.getElementById('selectedTimeSlots');
+            const srilankanAdultElement = document.getElementById('srilankanAdult');
+            const srilankanChildElement = document.getElementById('srilankanChild');
+            const foreignAdultElement = document.getElementById('foreignAdult');
+            const foreignChildElement = document.getElementById('foreignChild');
+            const infantElement = document.getElementById('infant');
+            const grandTotalElement = document.getElementById('grandTotal');
 
-            // Display the data in the checkoutDataDiv
-            detailsDataDiv.innerHTML = `
-                <h2>Date: ${date}</h2>
-                <h3>Selected Date: ${selectedDate}</h3>
-                <h3>Grand Total: ${grandTotal} USD</h3>
-                <h3>Selected Time Slots: ${selectedTimeSlots.join(', ')}</h3>
-                <h3>Ticket Types:</h3>
-                <ul>
-                    ${ticketTypes.map(ticketType => `<li>${ticketType.name}: ${ticketType.count}</li>`).join('')}
-                </ul>
+            dateElement.textContent = `Date: ${selected_date}`;
+            selectedTimeSlotsElement.textContent = selected_time_slot.join(', ');
+            ticketTypeElements.textContent = `
+                SL Adult: ${srilankanAdult}
+                SL Child: ${srilankanChild}
+                Foreign Adult: ${foreignAdult}
+                Foreign Child: ${foreignChild}
+                Infant: ${infant}
             `;
-
-            // Clear the stored data from local storage after displaying it
-            localStorage.removeItem('date');
-            localStorage.removeItem('selectedDate');
-            localStorage.removeItem('grandTotal');
-            localStorage.removeItem('ticketTypes');
-            localStorage.removeItem('selectedTimeSlots');
-        });
-
+            grandTotalElement.textContent = `${grandTotal} USD`;
+        }
+    });
 
 
         document.getElementById('submit-btn').addEventListener('click', function() {
@@ -241,23 +284,7 @@
   })
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const dateElement = document.getElementById('date');
-  const selectedTimeSlotsElement = document.getElementById('selectedTimeSlots');
-  const grandTotalElement = document.getElementById('grandTotal');
 
-  const date = JSON.parse(localStorage.getItem('purchaseDate'));
-  const selectedTimeSlots = JSON.parse(localStorage.getItem('selectedTimeSlots'));
-  const ticketTypes = JSON.parse(localStorage.getItem('ticketTypes'));
-  const grandTotal = localStorage.getItem('grandTotal');
-
-  // Display the retrieved data on the page
-  dateElement.textContent = date;
-  selectedTimeSlotsElement.textContent = selectedTimeSlots.join(', '); // Convert array to a comma-separated string
-  grandTotalElement.textContent = grandTotal;
-
-  // Optionally, you can also display the ticket count and other details if needed
-});
 
   </script>
 

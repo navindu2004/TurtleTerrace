@@ -7,13 +7,14 @@
     <title>Payment Page</title>
 
     <link rel="stylesheet" href="stylespayment.css">
+    <script src="https://unpkg.com/alpinejs" defer></script>
 
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+3:200,300,regular,500,600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic" rel="stylesheet">
 </head>
 <body>
 
 
-
+<div x-data="payments()">
     <main class="container">
 
         <h1 class="heading">
@@ -96,7 +97,7 @@
 
                 <a href="confirmationpage.html">
                 <button class="btn btn-primary">
-                    <b>Pay</b> $ <span id="payAmount">2.15</span>
+                    <b>Pay</b> $ <span x-text="grandTotal"></span>
                 </button>
                 </a>
 
@@ -114,15 +115,15 @@
                 <table border="3">
                     <tr>
                         <th class="category-header">Date</th>
-                        <td class="category-header">Column 2</th>
+                        <td class="category-header"><span x-text="selected_date"></span></th>
                     </tr>
                     <tr>
-                        <th class="category-header">Time</th>
-                        <td class="category-header">Row 1, Column 2</td>
+                        <th class="category-header">Time-slots</th>
+                        <td class="category-header"><span x-text="selected_time_slot"></span></td>
                     </tr>
                     <tr>
                         <th class="category-header">Duration</th>
-                        <td class="category-header">Row 2, Column 2</td>
+                        <td class="category-header"><span x-text="duration + ' hours'"></span></td>
                     </tr>
                     <tr>
                         <th class="category-header">Tickets</th>
@@ -130,27 +131,27 @@
                     </tr>
                     <tr>
                         <th class="category-header">SL Adult</th>
-                        <td class="category-header">Row 4, Column 2</td>
+                        <td class="category-header"><span x-text="srilankanAdult + ' USD'"></span></td>
                     </tr>
                     <tr>
                         <th class="category-header">SL Child</th>
-                        <td class="category-header">Row 5, Column 2</td>
+                        <td class="category-header"><span x-text="srilankanChild + ' USD'"></td>
                     </tr>
                     <tr>
                         <th class="category-header">Foreigner Adult</th>
-                        <td class="category-header">Row 6, Column 2</td>
+                        <td class="category-header"><span x-text="foreignAdult + ' USD'"></span></td>
                     </tr>
                     <tr>
                         <th class="category-header">Foreigner Child</th>
-                        <td class="category-header">Row 7, Column 2</td>
+                        <td class="category-header"><span x-text="foreignChild + ' USD'"></span></td>
                     </tr>
                     <tr>
                         <th class="category-header">Infant</th>
-                        <td class="category-header">Row 8, Column 2</td>
+                        <td class="category-header"><span x-text="infant + ' USD'"></span></td>
                     </tr>
                     <tr>
                         <th class="category-header">Total Payable</th>
-                        <td class="category-header">Row 9, Column 2</td>
+                        <td class="category-header"><span x-text="grandTotal + ' USD'"></span></td>
                     </tr>
                 </table>
 
@@ -194,9 +195,72 @@
             </section>
 
         </div>
-
-
+        <div class="user-details">
+            <h2 class="section-heading">User Details</h2>
+            <p><strong>Mobile:</strong> <span x-text="mobile"></span></p>
+            <p><strong>Date:</strong> </p>
+            <p><strong>Time:</strong> </p>
+            <p><strong>Duration:</strong> </p>
+            <p><strong>Adults:</strong> </p>
+            <p><strong>Children:</strong> <span x-text="srilankanChild"></span></p>
+            <p><strong>Foreigners:</strong> <span x-text="foreignAdult"></span></p>
+            <p><strong>Foreign Children:</strong> <span x-text="foreignChild"></span></p>
+            <p><strong>Infants:</strong> <span x-text="infant"></span></p>
+            <p><strong>Grand Total:</strong> <span x-text="grandTotal"></span></p>
+            <p><strong>Full Name:</strong> <span x-text="fullName"></span></p>
+            <p><strong>Email:</strong> <span x-text="email"></span></p>
+            <p><strong>Confirm Email:</strong> <span x-text="confirmEmail"></span></p>
+            <p><strong>Gender:</strong> <span x-text="gender"></span></p>
+        </div>
+    </div>        
     </main>
+    <script>
+        function payments() {
+            return {
+                fullName: '',
+                mobile: '',
+                email: '',
+                confirmEmail: '',
+                gender: '',
+                selected_date: '',
+                duration: '',
+                selected_time_slot: [],
+                srilankanAdult: 0,
+                srilankanChild: 0,
+                foreignAdult: 0,
+                foreignChild: 0,
+                infant: 0,
+                grandTotal: 0,
+
+                init() {
+                    const storedTicketData = localStorage.getItem('ticketData');
+                    const storedUserDetails = localStorage.getItem('userDetails');
+
+                    if (storedTicketData) {
+                        const ticketData = JSON.parse(storedTicketData);
+                        this.selected_date = ticketData.selected_date;
+                        this.selected_time_slot = ticketData.selected_time_slot;
+                        this.duration = ticketData.duration;
+                        this.srilankanAdult = ticketData.srilankanAdult;
+                        this.srilankanChild = ticketData.srilankanChild;
+                        this.foreignAdult = ticketData.foreignAdult;
+                        this.foreignChild = ticketData.foreignChild;
+                        this.infant = ticketData.infant;
+                        this.grandTotal = ticketData.grandTotal;
+                    }
+
+                    if (storedUserDetails) {
+                        const userDetails = JSON.parse(storedUserDetails);
+                        this.fullName = userDetails.fullName;
+                        this.mobile = userDetails.mobile;
+                        this.email = userDetails.email;
+                        this.confirmEmail = userDetails.confirmEmail;
+                        this.gender = userDetails.gender;
+                    }
+                },
+            };
+        }
+    </script>
     
     <script src="paymentjavas.js"></script>
 

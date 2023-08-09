@@ -412,6 +412,8 @@ input.search-box{
     border: none;
     padding: 10px 15px;
     cursor: pointer;
+    margin-left: 325px;
+    text-emphasis-color: white;
   }
 
   .row {
@@ -695,4 +697,16 @@ tr:hover {
 
 .grid-container-left{
     padding-left: 20px;
+}
+
+
+@media (max-width: 768px) {
+    .main-grid-container {
+        grid-template-columns: auto;
+        justify-content: center;
+    }
+
+    .grid-container-left {
+        padding-left: 0;
+    }
 }

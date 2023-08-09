@@ -139,6 +139,7 @@
             <tr>
                 <th>Date</th>
                 <th>Time Slots</th>
+                <th>Duration (in hours)</th>
                 <th  class="category-header">Category</th>
                 <th>Peak (in USD)</th>
                 <th>Normal (in USD)</th>
@@ -154,6 +155,11 @@
                 <td>
                     <template x-for="timeIndex in selectedTimeSlots">
                         <div x-text="openTimes[timeIndex].title"></div>
+                    </template>
+                </td>
+                <td>
+                    <template x-if="selectedTimeSlots.length > 1">
+                    <span x-text="calculateDuration()"></span>
                     </template>
                 </td>
                 <td>
@@ -188,6 +194,7 @@
     <div>
         <h4>Grand Total: <span x-text="grandTotal"></span> USD</h4>
     </div>
+
     </div>
 
 </div>
@@ -196,7 +203,7 @@
 
 <div class="containerforbtn">
 <div class="continuebtn">
-    <a href="details.html" id="continuePurchaseBtn" x-on:click="gotoCheckout"><span>Continue with purchase</span></a>
+    <a href="details.html" id="continuePurchaseBtn" x-on:click="gotoCheckout" ><span>Continue with purchase</span></a>
 </div>
 </div>
 </div><br><br>
@@ -391,16 +398,17 @@
                 },
 
                 gotoCheckout(){
-                    const dataToStore = {
+                const dataToStore = {
                 selected_date: this.date,
                 selected_time_slot: this.selectedTimeSlots.map((timeIndex) =>this.openTimes[timeIndex].title),
-                srilankanAdult: this.ticketTypes[0].count,
-                srilankanChild: this.ticketTypes[1].count,
-                foreignAdult: this.ticketTypes[2].count,
-                foreignChild: this.ticketTypes[3].count,
-                infant: this.ticketTypes[4].count,
+                duration: this.calculateDuration(),
+                srilankanAdult: this.ticketTypes[0].total,
+                srilankanChild: this.ticketTypes[1].total,
+                foreignAdult: this.ticketTypes[2].total,
+                foreignChild: this.ticketTypes[3].total,
+                infant: this.ticketTypes[4].total,
                 grandTotal: this.grandTotal
-                    };
+                };
                     const jsonData = JSON.stringify(dataToStore);
 
                     localStorage.setItem('ticketData', jsonData);
@@ -408,8 +416,25 @@
 
                     // redirect to the checkout page
                     window.location.href = 'details.html';
-                }
-            }));
+                },
+
+            calculateDuration() {
+            let totalDuration = 1;
+
+            for (let i = 0; i < this.selectedTimeSlots.length - 1; i++) {
+                const startSlot = this.openTimes[this.selectedTimeSlots[i]].title;
+                const endSlot = this.openTimes[this.selectedTimeSlots[i + 1]].title;
+
+                const startHour = parseInt(startSlot.split('.')[0]);
+                const endHour = parseInt(endSlot.split('.')[0]);
+
+                totalDuration += endHour - startHour;
+            }
+
+            return totalDuration;
+        }
+            
+    }));
 
 });
 
