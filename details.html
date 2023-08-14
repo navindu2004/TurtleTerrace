@@ -16,6 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
 </head>
 
 <body>
@@ -57,7 +58,7 @@
 <div class="container">
 
     <label for="mobile">Mobile</label>
-    <input type="tel" name="mobile" id="mobile" x-model="details.mobile" required>
+    <input type="tel" name="mobile" id="mobile" x-model="details.mobile" required maxlength="10">
 
 </div>
 <br>
@@ -82,7 +83,7 @@
     </div>
 <br>
     <div>
-    <button id="submit-btn" x-bind:disabled="details.email !== details.confirmEmail">
+        <button id="submit-btn" x-on:click="submitForm">
         <a href="paymentpage.html" x-on:click="storeUserDetails">Submit</a>
     </button>
     </div>
@@ -186,20 +187,40 @@
                         utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
                     });
                 },
+
+                submitForm() {
+                if (
+                    this.details.fullName === '' ||
+                    this.details.email === '' ||
+                    this.details.confirmEmail === '' ||
+                    this.details.mobile === ''
+                ) {
+                    const proceed = confirm('Enter your details!! Do you want to proceed to the payments page?');
+        if (proceed) {
+            window.location.href = 'details.html'; // Redirect to details page
+        }
+    } else if (this.details.email !== this.details.confirmEmail) {
+        alert('Emails do not match.');
+    } else {
+        this.storeUserDetails();
+    }
+},
+
                 gotoPayment() {
                     // set the guest data to local storage
                     localStorage.setItem('userDetails', JSON.stringify(this.userDetails));
 
                     // redirect to payment page
-                    window.location.href = 'payment.html'
+                    window.location.href = 'paymentpage.html'
                 },
 
                 storeUserDetails() {
                 const userDetails = {
                 fullName: this.details.fullName,
+                mobile: this.details.mobile,
                 email: this.details.email,
                 confirmEmail: this.details.confirmEmail,
-                gender: this.details.gender
+                gender: this.details.gender === 'male' ? 'Male' : 'Female'
             };
             localStorage.setItem('userDetails', JSON.stringify(userDetails));
             window.location.href = 'paymentpage.html';
@@ -250,15 +271,14 @@
 
         document.getElementById('submit-btn').addEventListener('click', function() {
     const fullName = document.getElementById('full-name').value;
-    const countryCode = document.getElementById('country-code').value;
-    const mobileNumber = document.getElementById('mobile-number').value;
+    const mobile = document.getElementById('mobile').value;
     const email = document.getElementById('email').value;
     const confirmEmail = document.getElementById('confirm-email').value;
   
     // Storing values in local storage
     localStorage.setItem('fullName', fullName);
     localStorage.setItem('countryCode', countryCode);
-    localStorage.setItem('mobileNumber', mobileNumber);
+    localStorage.setItem('mobile', mobile);
     localStorage.setItem('email', email);
     localStorage.setItem('confirmEmail', confirmEmail);
   
@@ -270,6 +290,10 @@
     if (storedDetails){
         const detailsData = JSON.parse(storedDetails);
         const fullNameInput = document.getElementById('fullName');
+        const genderSelect = document.getElementById('gender');
+
+        fullNameInput.value = userDetails.fullName;
+        genderSelect.value = userDetails.gender.toLowerCase();
     }
     const date = JSON.parse(localStorage.getItem('purchaseDate'));
     const selectedTimeSlots = JSON.parse(localStorage.getItem('selectedTimeSlots'));
@@ -282,6 +306,10 @@
     console.log('Ticket Types:', ticketTypes);
     console.log('Grand Total:', grandTotal);
   })
+
+
+  
+
 });
 
 

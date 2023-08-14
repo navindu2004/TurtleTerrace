@@ -448,3 +448,119 @@ input::-webkit-outer-spin-button{
 .category-header{
     width: 450px;
 }
+
+
+
+
+
+header .logo{
+    float:left;
+    height:inherit;
+  }
+  
+  .logo-text{
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .logspan{
+    color: #05f7ff;
+    font-family: 'Playfair Display', serif;
+  }
+  .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      border-radius: 8px;
+    }
+  h1,h2{
+      font-family: sans-serif;
+      font-weight: 400;
+  }
+  a{
+      text-decoration: none;
+  }
+  
+  li{
+      list-style:none;
+  }
+  
+  .flex{
+      display: flex;
+  }
+  
+  .flex_space {
+      display: flex;
+      justify-content:space-between;
+  }
+  button{
+      border:none;
+      background: none;
+      outline:none;
+      transition: 0.5s;
+      cursor: pointer;
+  }
+  
+  .primary-btn{
+      padding:15px 40px;
+      background: #7fc142;
+      font-weight: bold;
+      color:white;
+      border-radius: 100px;
+  }
+  
+  .secondary-btn{
+      padding:15px 40px;
+      background: none;
+      border: 2px solid white;
+      font-weight: bold;
+      color:white;
+  }
+  
+  .container{
+      max-width: 85%;
+      margin:auto;
+  }
+  
+  /*Header*/
+  header{
+      height: 10vh;
+      line-height: 10vh;
+      padding:0 20px;
+  }
+  
+  header img{
+      margin: 20px 0;
+  }
+  header ul{
+      display:inline-block;
+  }
+  
+  header ul li{
+      display: inline-block;
+      text-transform: uppercase;
+  }
+  header ul li a{
+      color:#000;
+      margin:0 10px;
+      transition:0.5s;
+  }
+  header ul li a:hover{
+      color:#7fc142;
+  }
+  
+  header i{
+      margin: 0 20px;
+  }
+  
+  header button{
+      padding:13px 40px;
+  }
+  
+  header .navlinks span{
+      display:none;
+  }
+  
+  /*header*/
+  

@@ -9,9 +9,28 @@
     <link rel="stylesheet" href="stylespayment.css">
     <script src="https://unpkg.com/alpinejs" defer></script>
 
+    <link href="https://fonts.googleapis.com/css2?family=Lora&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+3:200,300,regular,500,600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic" rel="stylesheet">
 </head>
 <body>
+    <header>
+        <div class="content flex_space">
+            <div class="logo">
+                <h1 class="logo-text"><span class="logspan">Turtle </span>Terrace</h1>
+            </div>
+            <div class="navlinks">
+                <ul id="menulist">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="volunteer.html">Volunteer</a></li>
+                    <li><a href="bentota.html">Bentota</a></li>
+                    <li><a href="hikkaduwa_hatchery.html">Hikkaduwa</a></li>
+                    <li><i class="fa fa-search"></i></li>
+                    <li><button class="primary-btn">BOOK NOW</button></li>
+                </ul>
+                <span class="fa fa-bars"></span>
+            </div>
+        </div>
+    </header>
 
 
 <div x-data="payments()">
@@ -40,15 +59,6 @@
                             <ion-icon class="checkmark fill" name="checkmark-circle"></ion-icon>
                         </button>
 
-
-                        <button class="method">
-                            <ion-icon name="logo-paypal"></ion-icon>
-
-                            <span>PayPal</span>
-
-                            <ion-icon class="checkmark fill" name="checkmark-circle-outline"></ion-icon>
-                        </button>
-
                     </div>
 
                     <form action="#">
@@ -56,14 +66,14 @@
                         <div class="cardholder-name">
 
                             <label for="cardholder-name" class="label-default">Cardholder name</label>
-                            <input type="text" name="cardholder-name" id="cardholder-name" class="input-default">
+                            <input type="text" name="cardholder-name" id="cardholder-name" class="input-default" required>
 
                         </div>
 
                         <div class="card-number">
 
                             <label for="card-number" class="label-default">Card Number</label>
-                            <input type="number" name="card-number" id="card-number" class="input-default">
+                            <input type="number" name="card-number" id="card-number" class="input-default" required>
                             
                         </div>
 
@@ -74,9 +84,9 @@
 
                             <div class="input-flex">
 
-                                <input type="number" name="day" id="expire-date" placeholder="31" min="1" max="31" class="input-default">
+                                <input type="number" name="day" id="expire-day" placeholder="31" min="1" max="31" maxlength="2" class="input-default" required >
                                 /
-                                <input type="number" name="month" id="expire-date" placeholder="12" min="1" max="12" class="input-default">
+                                <input type="number" name="month" id="expire-month" placeholder="12" min="1" max="12" maxlength="2" class="input-default"required>
 
                             </div>
                         </div>
@@ -84,7 +94,7 @@
                         <div class="cvv">
 
                             <label for="cvv" class="label-default">CVV</label>
-                            <input type="number" name="cvv" id="cvv" class="input-default">
+                            <input type="number" name="cvv" id="cvv" class="input-default" required maxlength="3">
                             
                         </div>
 
@@ -179,13 +189,10 @@
                         <span>Subtotal</span> <span>$ <span id="subtotal">2.05</span></span>
                     </div>
                     <div class="tax">
-                        <span>Tax</span> <span>$ <span id="tax">0.10</span></span>
-                    </div>
-                    <div class="shipping">
-                        <span>Shipping</span> <span>$ <span id="shipping">0.00</span></span>
+                        <span>Tax</span> <span>$ <span id="tax">0.00</span></span>
                     </div>
                     <div class="total">
-                        <span>Total</span> <span>$ <span id="total">2.15</span></span>
+                        <span>Total</span> <span>$ <span x-text="grandTotal"></span></span>
                     </div>
 
                 </div>

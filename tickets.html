@@ -22,6 +22,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
 </head>
 
 <body>
@@ -48,12 +49,15 @@
     <h1>Buy Tickets for Turtle Terrace Hikkaduwa</h1>
 </header>
 <div class="main-container">
+
+        
 <div class="dates-section">
     <h1>Dates</h1>
     <p>Enter the date/s of visit:- </p>
 </div><br>
 
 <div x-data="getTicketsData()">
+    <div class="grid-container-left">
 <div>
 <div>
     <label for="date">Date</label>
@@ -129,22 +133,22 @@
 <p>Charge per one Normal hour for SL Child - 2 USD</p>
 <p>Charge per one Peak hour for SL Child - 3 USD</p>
 <p>Infants - Free of Charge</p>
-
+</div>
 <br><br>
 <div>
-    <div>
+    <div class="grid-container-right">
 
     <table>
         <thead>
             <tr>
                 <th>Date</th>
                 <th>Time Slots</th>
-                <th>Duration (in hours)</th>
+                <th>Duration</th>
                 <th  class="category-header">Category</th>
                 <th>Peak (in USD)</th>
                 <th>Normal (in USD)</th>
                 <th>Count</th>
-                <th>Total</th>
+                <th>Total (in USD)</th>
             </tr>
         </thead>
         <tbody>
@@ -159,7 +163,7 @@
                 </td>
                 <td>
                     <template x-if="selectedTimeSlots.length > 1">
-                    <span x-text="calculateDuration()"></span>
+                    <span x-text="calculateDuration() + ' hours'"></span>
                     </template>
                 </td>
                 <td>
@@ -170,12 +174,12 @@
                 <td>
 
                     <template x-for="ticketType in ticketTypes">
-                        <div x-text="ticketType.peak"></div>
+                        <div x-text="'$ ' + ticketType.peak"></div>
                     </template>
                 </td>
                 <td>
                     <template x-for="ticketType in ticketTypes">
-                        <div x-text="ticketType.normal"></div>
+                        <div x-text="'$ ' +ticketType.normal"></div>
                     </template>
                 </td>
                 <td>
@@ -192,7 +196,7 @@
         </tbody>
     </table>
     <div>
-        <h4>Grand Total: <span x-text="grandTotal"></span> USD</h4>
+        <h4>Grand Total: <span x-text="'$ ' + grandTotal"></span> USD</h4>
     </div>
 
     </div>
@@ -216,7 +220,6 @@
 </div>
 
 
-</div>
 <br><br>
 
 

@@ -5,20 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="stylesconfirmation.css">
+    <script src="https://unpkg.com/alpinejs" defer></script>
 
 </head>
 <body>
-   
+    <div x-data="confirmation()">
     <div class="container">
-        <button type="submit" class="btn">Submit</button>
         <div class="popup">
             <img src="images/404-tick.png" alt="">
             <h2>Thank You!</h2>
-            <p>Your details have been successfully submitted. Thanks!</p>
+            <p>Thank you for your order. Your order has been confirmed with us. You can show this confirmation at the entrance.</p><p>Following is the summary of your order.</p>
+
             <a href="index.html">
             <button type="button">OK</button>
             </a>
         </div>
+        
     </div>
+ 
+    <div class="summary-table">
+    <table border="2">
+        <tr>
+            <th class="category-header">Full Name</th>
+            <td class="category-header"> <span x-text="fullName"></span></th>
+        </tr>
+        <tr>
+            <th class="category-header">Email</th>
+            <td class="category-header"><span x-text="email"></span>
+        </tr>
+        <tr>
+            <th class="category-header">Mobile</th>
+            <td class="category-header"><span x-text="mobile"></span></th>
+        </tr>
+        <tr>
+            <th class="category-header">Gender</th>
+            <td class="category-header"><span x-text="gender"></span></th>
+        </tr>
+        <tr>
+            <th class="category-header">Date</th>
+            <td class="category-header"><span x-text="selected_date"></span></th>
+        </tr>
+        <tr>
+            <th class="category-header">Time-slots</th>
+            <td class="category-header"><span x-text="selected_time_slot.join(', ')"></span></td>
+        </tr>
+        <tr>
+            <th class="category-header">Duration</th>
+            <td class="category-header"><span x-text="duration + ' hours'"></span></td>
+        </tr>
+        <tr>
+            <th class="category-header">Tickets</th>
+            <th class="category-header">Charges</th>
+        </tr>
+        <tr>
+            <th class="category-header">SL Adult</th>
+            <td class="category-header"><span x-text="srilankanAdult + ' USD'"></span></td>
+        </tr>
+        <tr>
+            <th class="category-header">SL Child</th>
+            <td class="category-header"><span x-text="srilankanChild + ' USD'"></span></td>
+        </tr>
+        <tr>
+            <th class="category-header">Foreigner Adult</th>
+            <td class="category-header"><span x-text="foreignAdult + ' USD'"></span></td>
+        </tr>
+        <tr>
+            <th class="category-header">Foreigner Child</th>
+            <td class="category-header"><span x-text="foreignChild + ' USD'"></span></td>
+        </tr>
+        <tr>
+            <th class="category-header">Infant</th>
+            <td class="category-header"><span x-text="infant + ' USD'"></span></td>
+        </tr>
+        <tr>
+            <th class="category-header">Total Payable</th>
+            <td class="category-header"><span x-text="grandTotal + ' USD'"></span></td>
+        </tr>
+    </table>
+    </div>
+
+    
+    </div>
+
+
+    <script>
+        
+        function confirmation() {
+            return {
+                fullName: '',
+                mobile: '',
+                email: '',
+                confirmEmail: '',
+                gender: '',
+                selected_date: '',
+                duration: '',
+                selected_time_slot: [],
+                srilankanAdult: 0,
+                srilankanChild: 0,
+                foreignAdult: 0,
+                foreignChild: 0,
+                infant: 0,
+                grandTotal: 0,
+
+                init() {
+                    const storedTicketData = localStorage.getItem('ticketData');
+                    const storedUserDetails = localStorage.getItem('userDetails');
+
+                    if (storedTicketData) {
+                        const ticketData = JSON.parse(storedTicketData);
+                        this.selected_date = ticketData.selected_date;
+                        this.selected_time_slot = ticketData.selected_time_slot;
+                        this.duration = ticketData.duration;
+                        this.srilankanAdult = ticketData.srilankanAdult;
+                        this.srilankanChild = ticketData.srilankanChild;
+                        this.foreignAdult = ticketData.foreignAdult;
+                        this.foreignChild = ticketData.foreignChild;
+                        this.infant = ticketData.infant;
+                        this.grandTotal = ticketData.grandTotal;
+                    }
+
+                    if (storedUserDetails) {
+                        const userDetails = JSON.parse(storedUserDetails);
+                        this.fullName = userDetails.fullName;
+                        this.mobile = userDetails.mobile;
+                        this.email = userDetails.email;
+                        this.confirmEmail = userDetails.confirmEmail;
+                        this.gender = userDetails.gender;
+                    }
+                },
+            };
+        }
+
+
+    </script>
 </body>
 </html>
