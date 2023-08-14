@@ -9,20 +9,22 @@
 
 </head>
 <body>
-    <div x-data="confirmation()">
-    <div class="container">
-        <div class="popup">
-            <img src="images/404-tick.png" alt="">
-            <h2>Thank You!</h2>
-            <p>Thank you for your order. Your order has been confirmed with us. You can show this confirmation at the entrance.</p><p>Following is the summary of your order.</p>
-
-            <a href="index.html">
-            <button type="button">OK</button>
-            </a>
-        </div>
+    <div class="grid-container-conp">
+        <div class="grid-item-left">
+            <div class="container">
+                <div class="popup">
+                    <img src="images/404-tick.png" alt="">
+                    <h2>Thank You!</h2>
+                    <p>Thank you for your order. Your order has been confirmed with us. You can show this confirmation at the entrance.</p><p>Following is the summary of your order:--</p>
         
-    </div>
- 
+                    <a href="index.html">
+                    <button type="button">OK</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="grid-item-right">
+    <div x-data="confirmation()">
     <div class="summary-table">
     <table border="2">
         <tr>
@@ -83,9 +85,11 @@
         </tr>
     </table>
     </div>
+</div>
+</div>
 
-    
     </div>
+</div>
 
 
     <script>
