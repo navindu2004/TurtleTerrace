@@ -574,3 +574,11 @@ button:hover{
         padding-left: 0;
     }
 }
+.disabled{
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.disabled::before{
+  content: "X";
+  margin-right: 5px;
+}

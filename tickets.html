@@ -51,14 +51,15 @@
 <div class="main-container">
 
         
-<div class="dates-section">
-    <h1>Dates</h1>
-    <p>Enter the date/s of visit:- </p>
-</div><br>
+
 
 <div x-data="getTicketsData()">
     <div class="grid-container-left">
 <div>
+    <div class="dates-section">
+        <h1>Dates</h1>
+        <p>Enter the date/s of visit:- </p>
+    </div>
 <div>
     <label for="date">Date</label>
     <input type="date" name="date" id="date" x-model="date" x-on:change="updateDate">
@@ -69,7 +70,7 @@
 <h1>Duration of stay</h1>
 <p>Please enter the times you will be visiting the hatchery. Note that the price point varies if selected at peak times.</p>
 <p>Peak hours are from:-</p>
-<p>10.00am to 1.00pm and 3.00 to 6.00pm</p>
+<p><b>10.00am to 1.00pm and 3.00 to 6.00pm</b></p>
 
 
 
@@ -230,7 +231,7 @@
 
 <div class="containerforbtn">
 <div class="continuebtn">
-    <a href="details.html" id="continuePurchaseBtn" x-on:click="gotoCheckout" ><span>Continue with purchase</span></a>
+    <a href="details.html" id="continuePurchaseBtn" x-on:click="gotoCheckout" :class="{ 'disabled': !areAllInputsSelected }"><span>Continue with purchase</span></a>
 </div>
 </div>
 </div><br><br>

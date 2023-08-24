@@ -34,191 +34,169 @@
 
 
 <div x-data="payments()">
-    <main class="container">
+<main class="container">
 
-        <h1 class="heading">
-            <ion-icon name="cart-outline"></ion-icon>Choose a Payment method
-        </h1>
+    <h1 class="heading">
+      <ion-icon name="cart-outline"></ion-icon>Choose a Payment method
+    </h1>
 
-        <div class="item-flex">
-
-
-            <section class="checkout">
-                <h2 class="section-heading">Payment Details</h2>
-
-                <div class="payment-form">
+    <div class="item-flex">
 
 
-                    <div class="payment-method">
+      <section class="checkout">
+        <h2 class="section-heading">Payment Details</h2>
 
-                        <button class="method selected">
-                            <ion-icon name="card"></ion-icon>
-
-                            <span>Credit/Debit Card</span>
-
-                            <ion-icon class="checkmark fill" name="checkmark-circle"></ion-icon>
-                        </button>
-
-                    </div>
-
-                    <form action="#">
-
-                        <div class="cardholder-name">
-
-                            <label for="cardholder-name" class="label-default">Cardholder name</label>
-                            <input type="text" name="cardholder-name" id="cardholder-name" class="input-default" required>
-
-                        </div>
-
-                        <div class="card-number">
-
-                            <label for="card-number" class="label-default">Card Number</label>
-                            <input type="number" name="card-number" id="card-number" class="input-default" required>
-                            
-                        </div>
-
-                       <div class="input-flex">
-
-                        <div class="expire-date">
-                            <label for="expire-date" class="label-default">Expiration Date</label>
-
-                            <div class="input-flex">
-
-                                <input type="number" name="day" id="expire-day" placeholder="31" min="1" max="31" maxlength="2" class="input-default" required >
-                                /
-                                <input type="number" name="month" id="expire-month" placeholder="12" min="1" max="12" maxlength="2" class="input-default"required>
-
-                            </div>
-                        </div>
-
-                        <div class="cvv">
-
-                            <label for="cvv" class="label-default">CVV</label>
-                            <input type="number" name="cvv" id="cvv" class="input-default" required maxlength="3">
-                            
-                        </div>
-
-                       </div> 
-
-                    </form>
-
-                </div>
+        <div class="payment-form">
 
 
-                <a href="confirmationpage.html">
-                <button class="btn btn-primary">
-                    <b>Pay</b> $ <span x-text="grandTotal"></span>
+            <div class="payment-method">
+
+                <button class="method selected">
+                    <ion-icon name="card"></ion-icon>
+
+                    <span>Credit/Debit Card</span>
+                    <ion-icon class="checkmark fill" name="checkmark-circle"></ion-icon>
                 </button>
-                </a>
 
-            </section>
+            </div>
 
+            <form action="#">
 
+                <div class="cardholder-name">
 
-            <section class="cart">
-
-
-               <div class="cart-item-box">
-
-                <h2 class="section-heading">Order Summary</h2>
-
-                <table border="3">
-                    <tr>
-                        <th class="category-header">Date</th>
-                        <td class="category-header"><span x-text="selected_date"></span></th>
-                    </tr>
-                    <tr>
-                        <th class="category-header">Time-slots</th>
-                        <td class="category-header"><span x-text="selected_time_slot"></span></td>
-                    </tr>
-                    <tr>
-                        <th class="category-header">Duration</th>
-                        <td class="category-header"><span x-text="duration + ' hours'"></span></td>
-                    </tr>
-                    <tr>
-                        <th class="category-header">Tickets</th>
-                        <th class="category-header">Charges</th>
-                    </tr>
-                    <tr>
-                        <th class="category-header">SL Adult</th>
-                        <td class="category-header"><span x-text="srilankanAdult + ' USD'"></span></td>
-                    </tr>
-                    <tr>
-                        <th class="category-header">SL Child</th>
-                        <td class="category-header"><span x-text="srilankanChild + ' USD'"></td>
-                    </tr>
-                    <tr>
-                        <th class="category-header">Foreigner Adult</th>
-                        <td class="category-header"><span x-text="foreignAdult + ' USD'"></span></td>
-                    </tr>
-                    <tr>
-                        <th class="category-header">Foreigner Child</th>
-                        <td class="category-header"><span x-text="foreignChild + ' USD'"></span></td>
-                    </tr>
-                    <tr>
-                        <th class="category-header">Infant</th>
-                        <td class="category-header"><span x-text="infant + ' USD'"></span></td>
-                    </tr>
-                    <tr>
-                        <th class="category-header">Total Payable</th>
-                        <td class="category-header"><span x-text="grandTotal + ' USD'"></span></td>
-                    </tr>
-                </table>
-
-               </div> 
-
-               <div class="wrapper">
-
-                <div class="discount-token">
-
-                    <label for="discount-token" class="label-default">Gift Card/ Discount Code</label>
-
-                    <div class="wrapper-flex">
-
-                        <input type="text" name="discount-token" id="discount-token" class="input-default">
-
-                        <button class="btn btn-outline">Apply</button>
-
-                    </div>
+                  <label for="cardholder-name" class="label-default">Cardholder name</label>
+                  <input type="text" name="cardholder-name" id="cardholder-name" class="input-default" required x-on:input="convertToUppercaseAndLetters">
 
                 </div>
 
-                <div class="amount">
+                <div class="card-number">
 
-                    <div class="subtotal">
-                        <span>Subtotal</span> <span>$ <span id="subtotal">2.05</span></span>
-                    </div>
-                    <div class="tax">
-                        <span>Tax</span> <span>$ <span id="tax">0.00</span></span>
-                    </div>
-                    <div class="total">
-                        <span>Total</span> <span>$ <span x-text="grandTotal"></span></span>
-                    </div>
-
+                  <label for="card-number" class="label-default">Card Number</label>
+                  <input type="number" name="card-number" id="card-number" class="input-default" required x-on:input="limitCardNumberLength">
+                            
                 </div>
 
-               </div>
+                <div class="input-flex">
 
-            </section>
+                    <div class="expire-date">
+                      <label for="expire-date" class="label-default">Expiration Date</label>
+
+                        <div class="input-flex">
+
+                            <input type="number" name="day" id="expire-day" placeholder="31" min="1" max="31" class="input-default" required oninput="limitDayNumberRange(event)">
+                                /
+                            <input type="number" name="month" id="expire-month" placeholder="12" min="1" max="12" maxlength="2" class="input-default"required>
+
+                        </div>
+                    </div>
+
+                    <div class="cvv">
+
+                      <label for="cvv" class="label-default">CVV</label>
+                      <input type="number" name="cvv" id="cvv" class="input-default" required maxlength="3" x-on:input="limitCVVNumberLength">
+                            
+                    </div>
+
+                </div> 
+
+            </form>
 
         </div>
-        <div class="user-details">
-            <h2 class="section-heading">User Details</h2>
-            <p><strong>Mobile:</strong> <span x-text="mobile"></span></p>
-            <p><strong>Date:</strong> </p>
-            <p><strong>Time:</strong> </p>
-            <p><strong>Duration:</strong> </p>
-            <p><strong>Adults:</strong> </p>
-            <p><strong>Children:</strong> <span x-text="srilankanChild"></span></p>
-            <p><strong>Foreigners:</strong> <span x-text="foreignAdult"></span></p>
-            <p><strong>Foreign Children:</strong> <span x-text="foreignChild"></span></p>
-            <p><strong>Infants:</strong> <span x-text="infant"></span></p>
-            <p><strong>Grand Total:</strong> <span x-text="grandTotal"></span></p>
-            <p><strong>Full Name:</strong> <span x-text="fullName"></span></p>
-            <p><strong>Email:</strong> <span x-text="email"></span></p>
-            <p><strong>Confirm Email:</strong> <span x-text="confirmEmail"></span></p>
-            <p><strong>Gender:</strong> <span x-text="gender"></span></p>
+
+
+    <a href="confirmationpage.html">
+    <button class="btn btn-primary">
+        <b>Pay</b> $ <span x-text="grandTotal"></span>
+    </button>
+    </a>
+
+    </section>
+
+<section class="cart">
+
+    <div class="cart-item-box">
+
+        <h2 class="section-heading">Order Summary</h2>
+
+        <table border="3">
+            <tr>
+                <th class="category-header">Date</th>
+                <td class="category-header"><span x-text="selected_date"></span></th>
+            </tr>
+            <tr>
+                <th class="category-header">Time-slots</th>
+                <td class="category-header"><span x-text="selected_time_slot"></span></td>
+            </tr>
+            <tr>
+                <th class="category-header">Duration</th>
+                <td class="category-header"><span x-text="duration + ' hours'"></span></td>
+            </tr>
+            <tr>
+                <th class="category-header">Tickets</th>
+                <th class="category-header">Charges</th>
+            </tr>
+            <tr>
+                <th class="category-header">SL Adult</th>
+                <td class="category-header"><span x-text="srilankanAdult + ' USD'"></span></td>
+            </tr>
+            <tr>
+                <th class="category-header">SL Child</th>
+                <td class="category-header"><span x-text="srilankanChild + ' USD'"></td>
+            </tr>
+            <tr>
+                <th class="category-header">Foreigner Adult</th>
+                <td class="category-header"><span x-text="foreignAdult + ' USD'"></span></td>
+            </tr>
+            <tr>
+                <th class="category-header">Foreigner Child</th>
+                <td class="category-header"><span x-text="foreignChild + ' USD'"></span></td>
+            </tr>
+            <tr>
+                <th class="category-header">Infant</th>
+                <td class="category-header"><span x-text="infant + ' USD'"></span></td>
+            </tr>
+            <tr>
+                <th class="category-header">Total Payable</th>
+                <td class="category-header"><span x-text="grandTotal + ' USD'"></span></td>
+            </tr>
+        </table>
+
+    </div> 
+
+    <div class="wrapper">
+        <div class="discount-token">
+
+            <label for="discount-token" class="label-default">Gift Card/ Discount Code</label>
+
+              <div class="wrapper-flex">
+
+                <input type="text" name="discount-token" id="discount-token" class="input-default">
+
+                    <button class="btn btn-outline">Apply</button>
+
+              </div>
+
         </div>
+        <div class="amount">
+
+          <div class="subtotal">
+            <span>Subtotal</span> <span>$ <span id="subtotal">2.05</span></span>
+          </div>
+          <div class="tax">
+            <span>Tax</span> <span>$ <span id="tax">0.00</span></span>
+          </div>
+          <div class="total">
+            <span>Total</span> <span>$ <span x-text="grandTotal"></span></span>
+          </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+        </div>
+        
     </div>        
     </main>
     <script>
@@ -267,6 +245,37 @@
                 },
             };
         }
+        //to convert to uppercase
+  function convertToUppercaseAndLetters(event) {
+    const input = event.target;
+    input.value = input.value.replace(/[^A-Za-z\s]/g, '').toUpperCase();
+  }
+  function limitCardNumberLength(event) {
+    const input = event.target;
+    if (input.value.length > 16) {
+      input.value = input.value.slice(0, 16);
+    }
+  }
+  function limitCVVNumberLength(event) {
+    const input = event.target;
+    if (input.value.length > 3) {
+      input.value = input.value.slice(0, 3);
+    }
+  }
+  function limitDayNumberRange(event) {
+  const input = event.target;
+  let value = parseInt(input.value);
+
+
+  if (isNaN(value) || value < 1) {
+    value = 1;
+  } else if (value > 31) {
+    value = 31;
+  }
+
+  input.value = value.toString().padStart(2, '0');
+}
+  
     </script>
     
     <script src="paymentjavas.js"></script>
